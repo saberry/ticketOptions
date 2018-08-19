@@ -4,10 +4,19 @@
 
 library(dplyr); library(jsonlite); library(tidyr)
 
+source("injuryScrape.R")
+
+source("masseyComps.R")
+
+source("masseyRatings.R")
+
 # Thankfully, we have this really nice json file!
 
-optionsDat = jsonlite::read_json("https://api.cfp-rsvp.com/api/teams/getTeams?eventId=2", 
-                           simplifyVector = TRUE)
+# optionsDat = jsonlite::read_json("https://api.cfp-rsvp.com/api/teams/getTeams?eventId=2", 
+#                            simplifyVector = TRUE)
+
+optionsDat = jsonlite::read_json("https://api.dibitnow.com/api/v1/eventPerformers/getEventPerformers?eventId=1", 
+                                 simplifyVector = TRUE)
 
 # To keep track of date and time, we will add Sys.time. 
 
@@ -16,28 +25,54 @@ optionsDat$dateTime = Sys.time()
 # One of the columns, teamTiers, has a nested list structure. We need to spread
 # it out, collapse it down, and then bind the individual data frames.
 
+# spreadData = lapply(1:nrow(optionsDat), function(x) {
+#   
+#   res = optionsDat$teamTiers[[x]] %>% 
+#     reshape::melt(.) %>% 
+#     reshape::cast(., value ~ tierShortName + variable) %>% 
+#     select(-value) %>% 
+#     summarize_all(sum, na.rm = TRUE)
+#   
+#   return(res)
+# }) %>% 
+#   data.table::rbindlist(., fill = TRUE)
+
 spreadData = lapply(1:nrow(optionsDat), function(x) {
   
-  res = optionsDat$teamTiers[[x]] %>% 
-    reshape::melt(.) %>% 
-    reshape::cast(., value ~ tierShortName + variable) %>% 
+  res = optionsDat$eventPerformerExperiences[[x]] %>% 
+    select(eventPerformerId, 
+           experienceId, experienceShortName, 
+           initialPrice, maxPurchaseQuantity, price, 
+           lastModifiedDateTime) %>% 
+    tidyr::gather(., key = key, value = value, 
+                  -experienceShortName) %>% 
+    reshape::cast(., value ~ experienceShortName + key) %>% 
     select(-value) %>% 
-    summarize_all(sum, na.rm = TRUE)
+    tidyr::gather(.) %>% 
+    na.omit(.) %>% 
+    tidyr::spread(., key = key, value = value) %>% 
+    mutate_at(vars(-contains("lastModifiedDateTime")), as.numeric) %>%
+    mutate_at(vars(contains("lastModifiedDateTime")),
+              lubridate::as_datetime)
   
   return(res)
 }) %>% 
   data.table::rbindlist(., fill = TRUE)
 
+
+
 # After spread that column out into separate columns, we need to column bind
 # them back into the original data.
 
 optionsDat = cbind(optionsDat, spreadData) %>% 
-  select(-teamTiers)
+  select(-eventPerformerCategory, -eventPerformerExperiences, 
+         -priceTrend)
 
 # Since we are doing this continually, we will append new data into
 # the same file.
 
-write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/R/projects/teamOptionPricing/optionsDat.csv", append = TRUE, 
+write.table(x = optionsDat, 
+            file = "C:/Users/berry2006/Documents/projects/teamOptionPricing/teamOptionPricing/optionsDatNew.csv", append = TRUE, 
             na = "", sep = ",", row.names = FALSE)
 
 
