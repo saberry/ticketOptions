@@ -10,6 +10,8 @@ source("masseyComps.R")
 
 source("masseyRatings.R")
 
+source("predictedWinners.R")
+
 # Thankfully, we have this really nice json file!
 
 # optionsDat = jsonlite::read_json("https://api.cfp-rsvp.com/api/teams/getTeams?eventId=2", 
@@ -70,6 +72,21 @@ optionsDat = cbind(optionsDat, spreadData) %>%
 
 # Since we are doing this continually, we will append new data into
 # the same file.
+
+injury = injuryScrape()
+
+masseyCompsDat = masseyComps()
+
+masseyRatingsDat = masseyRatings()
+
+winners = predictedWinners()
+
+optionsDat = optionsDat %>% 
+  left_join(., masseyCompsDat, by = c("name" = "Team")) %>% 
+  left_join(., masseyRatingsDat, by = c("name" = "Team")) %>% 
+  left_join(., injury, by = c("name" = "team")) %>% 
+  mutate(computerPick = ifelse(.$name %in% winners$computerPicks, 1, 0), 
+         publicPick = ifelse(.$name %in% winners$publicPicks, 1, 0))
 
 write.table(x = optionsDat, 
             file = "C:/Users/berry2006/Documents/projects/teamOptionPricing/teamOptionPricing/optionsDatNew.csv", append = TRUE, 

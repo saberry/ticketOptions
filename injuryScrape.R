@@ -38,6 +38,3 @@ injuryScrape = function() {
   return(test)
   
 }
-
-
-injuries = injuryScrape()
