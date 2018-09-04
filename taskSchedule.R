@@ -4,7 +4,7 @@
 
 library(taskscheduleR)
 
-pullPrepScript = "C:/Users/berry2006//Documents/projects/teamOptionPricing/teamOptionPricing/teamOptionsPullPrep.R"
+pullPrepScript = "C:/Users/sberry5/Documents/research/ticketOptions/teamOptionsPullPrep.R"
 
 taskscheduler_create(taskname = "optionsPullPrep", rscript = pullPrepScript, 
                      schedule = "DAILY", starttime = "13:00", 

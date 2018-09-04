@@ -4,13 +4,13 @@
 
 library(dplyr); library(jsonlite); library(tidyr)
 
-source("injuryScrape.R")
+source("C:/Users/sberry5/Documents/research/ticketOptions/injuryScrape.R")
 
-source("masseyComps.R")
+source("C:/Users/sberry5/Documents/research/ticketOptions/masseyComps.R")
 
-source("masseyRatings.R")
+source("C:/Users/sberry5/Documents/research/ticketOptions/masseyRatings.R")
 
-source("predictedWinners.R")
+source("C:/Users/sberry5/Documents/research/ticketOptions/predictedWinners.R")
 
 # Thankfully, we have this really nice json file!
 
@@ -89,7 +89,7 @@ optionsDat = optionsDat %>%
          publicPick = ifelse(.$name %in% winners$publicPicks, 1, 0))
 
 write.table(x = optionsDat, 
-            file = "C:/Users/berry2006/Documents/projects/teamOptionPricing/teamOptionPricing/optionsDatNew.csv", append = TRUE, 
+            file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv", append = TRUE, 
             na = "", sep = ",", row.names = FALSE)
 
 

@@ -19065,3 +19065,1798 @@ Using tierName, tierShortName as id variables
 Warning message:
 In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/R/projects/teamOptionPricing/optionsDat.csv",  :
   appending column names to file
+
+Soham: How to compute the p-value of a statistic generally?
+Berton Gunter: runif(1)
+   -- Soham and Berton Gunter
+      R-help (May 2010)
+
+Your Shakespearean insult for the day is... Thou clouted folly-fallen moldwarp
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Brian D. Ripley: Add to package utils in R-devel, after correction. I was
+surprised you had fallen into the 1:0 trap.
+Patrick Burns: I'm surprised too -- good catch.
+   -- Brian D. Ripley and Patrick Burns (after adding Patrick Burns' head() to
+      the utils package)
+      R-devel (January 2004)
+
+Your Shakespearean insult for the day is... Thou loggerheaded beetle-headed vassal
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Although there is almost never a "No" in R, the best short answer is: "No".
+   -- Uwe Ligges (in response to the question whether R has a concept of "const
+      objects" as in C++ that avoid modification)
+      R-help (March 2011)
+
+Your Shakespearean insult for the day is... Thou paunchy dismal-dreaming harpy
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+I have mentioned several times on this list that I'm in the process of
+developing a new and wonderful implementation of lme and I would prefer to
+continue working on that rather than modifying old-style code.
+   -- Douglas Bates
+      R-help (March 2004)
+
+Your Shakespearean insult for the day is... Thou venomed hell-hated wagtail
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Please don't apply R like a magic answers box, because you can mislead others
+and cause harm.
+   -- Jeff Newmiller (about how much statistical knowledge is needed for using
+      R)
+      R-help (May 2016)
+
+Your Shakespearean insult for the day is... Thou jarring swag-bellied vassal
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+If things are not readily available in R it is always good to pause and reflect
+if there might be a good reason.
+   -- Brian D. Ripley (about how to get t statistics for arima())
+      R-help (March 2013)
+
+Your Shakespearean insult for the day is... Thou frothy earth-vexing haggard
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Release 1.0.0
+(silence)
+Wow! Thank you! [...] If I am allowed to ask just one question today: How do
+you fit 48 hours of coding in an ordinary day? Any hints will be appreciated
+... :-)
+   -- Detlef Steuer (on 2000-02-29)
+      R-help (February 2000)
+
+Your Shakespearean insult for the day is... Thou clouted clapper-clawed skainsmate
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+You're overlooking something like line 800 of the documentation for xyplot.
+[...] It's probably in the R-FAQ as well, since my original feeling was that
+this behaviour was chosen in order to confuse people and see how many people
+read the FAQ... :)
+   -- Barry Rowlingson (about the fact that lattice objects have to be
+      print()ed)
+      R-help (May 2005)
+
+Your Shakespearean insult for the day is... Thou vain toad-spotted moldwarp
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+This is like asking, "My car doesn't work. Can anyone tell me what is wrong?"
+   -- Jeff Newmiller (in response to the generic question why "some packages do
+      not work" in R 3.2.5)
+      R-help (June 2016)
+
+Your Shakespearean insult for the day is... Thou reeky dizzy-eyed baggage
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+I must say I feel very uneasy about giving advice on how to use R as a
+pre-processor for something that is to be done in Excel, but we are a broad
+church here!
+   -- Bill Venables
+      R-help (March 2009)
+
+Your Shakespearean insult for the day is... Thou bootless motley-minded foot-licker
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+It really is hard to anticipate just how silly users can be.
+   -- Brian D. Ripley
+      R-devel (October 2003)
+
+Your Shakespearean insult for the day is... Thou errant dread-bolted giglet
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+On average, any data manipulation that can be described in a sentence or two of
+English can be programmed in one line in R. If you find yourself writing a long
+'for' loop to do something that sounds simple, take a step back and research if
+an existing combination of functions can easily handle your request.
+   -- Erik Iverson
+      R-help (June 2010)
+
+Your Shakespearean insult for the day is... Thou mangled half-faced baggage
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Getting flamed for asking dumb questions on a public mailing list is all part
+of growing up and being a man/woman.
+   -- Michael Watson (in a discussion on whether answers on R-help should be
+      more polite)
+      R-help (December 2004)
+
+Your Shakespearean insult for the day is... Thou unmuzzled shard-borne flax-wench
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Excellent, Berwin!
+Specifically the part about why the bug never really triggers wrong behavior.
+Your mail should be saved in 'The Annals of R' ...
+   -- Martin Maechler (after Berwin A Turlach reported a buglet in
+      'spline_eval')
+      R-devel (July 2005)
+
+Your Shakespearean insult for the day is... Thou vain swag-bellied hugger-mugger
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Getting flamed for asking dumb questions on a public mailing list is all part
+of growing up and being a man/woman.
+   -- Michael Watson (in a discussion on whether answers on R-help should be
+      more polite)
+      R-help (December 2004)
+
+Your Shakespearean insult for the day is... Thou fawning swag-bellied mumble-news
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+If you give people a linear model function you give them something dangerous.
+   -- John Fox
+      useR! 2004, Vienna (May 2004)
+
+Your Shakespearean insult for the day is... Thou unmuzzled half-faced miscreant
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+I have never heard anyone (knowledgable or otherwise) claim that, in the
+absence of transition costs, SAS is better than R for equity modeling. If you
+come across any such claim, I would be happy to refute it.
+   -- David Kane
+      R-SIG-Finance (December 2004)
+
+Your Shakespearean insult for the day is... Thou currish clapper-clawed bladder
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Kenn Konstabel: [...] There's more to this trend: SPSS and Statistica now
+advertise "R language support": [...]
+Charles C. Berry: If you can't beat R, join R.
+Marc Schwartz: "Resistance is futile. You will be assimilated." 
+   -- Kenn Konstabel, Charles C. Berry, and Marc Schwartz (about the RPro
+      release from REvolution)
+      R-help (August 2008)
+
+Your Shakespearean insult for the day is... Thou frothy onion-eyed varlot
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Thomas Lumley: The precedence of ^ is higher than that of unary minus. It may
+be surprising, [...]
+Herve Pages: No, it's not surprising. At least to me... In the country where I
+grew up, I've been teached that -x^2 means -(x^2) not (-x)^2.
+   -- Thomas Lumley and Herve Pages (both explaining that operator precedence
+      is working perfectly well)
+      R-devel (January 2006)
+
+Your Shakespearean insult for the day is... Thou qualling flap-mouthed measle
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+We are teaching stuff like mathematics, statistics, statistical programming and
+so on, but we cannot teach each possible software product - we also don't teach
+how to analyze each possible dataset that might find its way to the
+statistician's desk, we just use the iris data and Anscombe's quartet. ;-)
+   -- Uwe Ligges (in a thread about whether universities have to teach students
+      how to use commercial software)
+      R-help (April 2005)
+
+Your Shakespearean insult for the day is... Thou cockered rump-fed mammet
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+If you don't go with R now, you will someday.
+   -- David Kane (on whether to use R or S-PLUS)
+      R-SIG-Finance (November 2004)
+
+Your Shakespearean insult for the day is... Thou surly fen-sucked nut-hook
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+I have never heard anyone (knowledgable or otherwise) claim that, in the
+absence of transition costs, SAS is better than R for equity modeling. If you
+come across any such claim, I would be happy to refute it.
+   -- David Kane
+      R-SIG-Finance (December 2004)
+
+Your Shakespearean insult for the day is... Thou currish ill-nurtured hedge-pig
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+If we do that, I predict that the total amount of r-help time wasted on it will
+exceed the CPU time saved by orders of magnitude.
+   -- Duncan Murdoch (after a specialized function speeding up detection of NAs
+      was suggested for base R)
+      R-devel (April 2006)
+
+Your Shakespearean insult for the day is... Thou infectious spur-galled barnacle
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Cross posting is sociopathic.
+   -- Roger Koenker
+      R-help (November 2008)
+
+Your Shakespearean insult for the day is... Thou weedy crook-pated bum-bailey
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+The style for JSS now enforces (via Achimitization) the use of quotes.
+   -- Michael Friendly (on whether to quote or not to quote arguments like
+      library("Hmisc") or help("mean"))
+      R-help (March 2011)
+
+Your Shakespearean insult for the day is... Thou reeky knotty-pated whey-face
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+As to whether you can do a Lilliefors test for several groups, that depends
+entirely on your ability to understand what the underlying question would be
+(see Adams D 1979).
+   -- Knut M. Wittkowski
+      R-help (February 2004)
+
+Your Shakespearean insult for the day is... Thou puking fool-born varlot
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+The learning curve is steep - but then like many people, I'd like to be able to
+do sophisticated modelling with deep understanding and no effort :-)
+   -- Sean O'Riordain (in a thread about the helpfulness of documentation)
+      R-help (July 2005)
+
+Your Shakespearean insult for the day is... Thou mewling fat-kidneyed boar-pig
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+This should be FAQ 0.0. No other thing is asked as frequently as this. This is
+the FAQest of all FAQs, and a mother of all FAQs.
+   -- Jari Oksanen (answering yet another question related to FAQ 7.31)
+      R-help (February 2013)
+
+Your Shakespearean insult for the day is... Thou infectious rude-growing barnacle
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+You can't expect statistical procedures to rescue you from poor data.
+   -- Berton Gunter (on dealing with missing values in a cluster analysis)
+      R-help (April 2005)
+
+Your Shakespearean insult for the day is... Thou spongy onion-eyed vassal
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Let's not kid ourselves: the most widely used piece of software for statistics
+is Excel.
+   -- Brian D. Ripley ('Statistical Methods Need Software: A View of
+      Statistical Computing')
+      Opening lecture RSS 2002, Plymouth (September 2002)
+
+Your Shakespearean insult for the day is... Thou warped weather-bitten horn-beast
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Apparently mathematical impossibility is not an impediment to parameter
+estimation in such cases.
+   -- Douglas Bates (about the abilities of SAS PROC MIXED)
+      R-help (December 2007)
+
+Your Shakespearean insult for the day is... Thou fawning half-faced puttock
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+John Miller: How do I prevent google search to post my questions asked here??
+Martin Maechler: you don't: R-help is famous and celebrity can't be gotten rid
+off ;-)
+   -- John Miller and Martin Maechler
+      R-help (June 2004)
+
+Your Shakespearean insult for the day is... Thou mangled tickle-brained bladder
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Don't do as I say, do as Hadley does.
+   -- Barry Rowlingson (in a discussion about the workflow for writing R
+      packages, see also fortune(128))
+      R-devel (September 2011)
+
+Your Shakespearean insult for the day is... Thou vain milk-livered maggot-pie
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+I plan to fix this - the report is just in case I forget or get hit by a bus.
+   -- Ross Ihaka (reporting a bug in persp)
+      R-help (October 2003)
+
+Your Shakespearean insult for the day is... Thou ruttish swag-bellied skainsmate
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+[...] (damn... my shift key just broke as well...)
+bill venables.
+   -- Bill Venables (answering a message that lacked upper case letters)
+      R-help (April 2005)
+
+Your Shakespearean insult for the day is... Thou currish doghearted pigeon-egg
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Frank Harrell: Here is an easy approach that will yield results only slightly
+less valid than one actually using the response variable:
+  x <- data.frame(x1, x2, x3, x4, ..., other potential predictors)
+  x[ , sample(ncol(x))]
+Andy Liaw: Hmm... Shouldn't that be something like:
+  x[, sample(ncol(x), ceiling(ncol(x) * runif(1)))]
+   -- Frank Harrell and Andy Liaw (about alternative strategies for stepwise
+      regression and 'random parsimony')
+      R-help (May 2005)
+
+Your Shakespearean insult for the day is... Thou droning flap-mouthed mammet
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+4 bits are not enough for me!
+   -- Philippe Grosjean (after conference dinner incl. wine in a conversation
+      about the representation of data in the ff package)
+      useR! 2009, Rennes (July 2009)
+
+Your Shakespearean insult for the day is... Thou infectious clapper-clawed flax-wench
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Can one be a good data analyst without being a half-good programmer? The short
+answer to that is, 'No.' The long answer to that is, 'No.'
+   -- Frank Harrell
+      1999 S-PLUS User Conference, New Orleans (October 1999)
+
+Your Shakespearean insult for the day is... Thou goatish milk-livered varlot
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+I suggest that we redefine "+" to be a legal character in the name of an
+identifier. Sure, if you used to have "a+b" you'll have to rewrite it as
+"+(a,b)", but think of the benefits!
+You+can+write+out+long+sentences+and+use+them+as+variable+names!
+   -- Duncan Murdoch (in a discussion whether to use underscore, dot, or mixed
+      case in variable names)
+      R-help (May 2005)
+
+Your Shakespearean insult for the day is... Thou loggerheaded tickle-brained pignut
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Finally, a word of wisdom from a long-ago engineering colleague: "Whenever I
+see an outlier, I'm never sure whether to throw it away or patent it."
+   -- Berton Gunter (on outlier identification)
+      R-help (December 2009)
+
+Your Shakespearean insult for the day is... Thou pribbling doghearted flax-wench
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+Achim Zeileis: Other visualizations of departures from indepence include
+mosaicplots with shading or association plots. See mosaicplot() and assocplot()
+and the package vcd.
+Peter Dalgaard: I see that you've taken initive to abbriate statiscal
+concepts...
+   -- Achim Zeileis and Peter Dalgaard
+      R-help (January 2005)
+
+Your Shakespearean insult for the day is... Thou clouted half-faced horn-beast
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+I'm really curious to know why the "two types" of sum of squares are called
+"Type I" and "Type III"! This is a very common misconception, particularly
+among SAS users who have been fed this nonsense quite often for all their
+professional lives. Fortunately the reality is much simpler. There is, by any
+sensible reckoning, only ONE type of sum of squares, and it always represents
+an improvement sum of squares of the outer (or alternative) model over the
+inner (or null hypothesis) model. What the SAS highly dubious classification of
+sums of squares does is to encourage users to concentrate on the null
+hypothesis model and to forget about the alternative. This is always a very bad
+idea and not surprisingly it can lead to nonsensical tests, as in the test it
+provides for main effects "even in the presence of interactions", something
+which beggars definition, let alone belief.
+   -- Bill Venables
+      R-help (November 2000)
+
+Your Shakespearean insult for the day is... Thou churlish fool-born fustilarian
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Calls: source -> file
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'injuryScrape.R': No such file or directory
+Execution halted
+
+The learning curve is steep - but then like many people, I'd like to be able to
+do sophisticated modelling with deep understanding and no effort :-)
+   -- Sean O'Riordain (in a thread about the helpfulness of documentation)
+      R-help (July 2005)
+
+Your Shakespearean insult for the day is... Thou frothy milk-livered bladder
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X63 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X63' [63] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+RAM is cheap and thinking hurts.
+   -- Uwe Ligges (about memory requirements in R)
+      R-help (June 2007)
+
+Your Shakespearean insult for the day is... Thou churlish rump-fed measle
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X63 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X63' [63] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+And the fear of getting Ripleyed on the mailing list also makes me think, read,
+and improve before submitting half baked questions to the list.
+   -- Eric Kort
+      R-help (January 2006)
+
+Your Shakespearean insult for the day is... Thou bawdy unchin-snouted mammet
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X63 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X63' [63] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+It might surprise many R-help posters, but R has manuals as well...
+   -- Uwe Ligges
+      R-help (January 2006)
+
+Your Shakespearean insult for the day is... Thou droning reeling-ripe gudgeon
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X63 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X63' [63] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+I prefer _Melodramatic Analysis_.
+   -- Dirk Eddelbuettel (after Barry Rowlingson noticed 'Sentimental Analysis'
+      as a misspelled 'Sentiment Analysis' on datascience.stackexchange.com)
+      R chatroom on stackoverflow.com (April 2016)
+
+Your Shakespearean insult for the day is... Thou fawning dread-bolted flap-dragon
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X63 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X63' [63] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+I must say I feel very uneasy about giving advice on how to use R as a
+pre-processor for something that is to be done in Excel, but we are a broad
+church here!
+   -- Bill Venables
+      R-help (March 2009)
+
+Your Shakespearean insult for the day is... Thou spleeny fat-kidneyed hugger-mugger
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X63 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X63' [63] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+Barry Rowlingson: I've been unable to locate any version of S online. Does
+anyone have a copy, somewhere, rusting away on an old hard disk or slowly
+flaking off a tape? [...] Obviously this would be for archaeological purposes.
+John Chambers: [...] somehow "historical" would be less unnerving than
+"archeological".
+Barry Rowlingson: At least I didn't say palaeontological.
+   -- Barry Rowlingson and John Chambers (on the availability of the source
+      code for early versions of S)
+      R-devel (February 2016)
+
+Your Shakespearean insult for the day is... Thou reeky beetle-headed moldwarp
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X63 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X63' [63] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+Spencer Graves: What do you think about adding a "No RTFM" policy to the R
+mailing lists?
+Michael Dewey: You raise an interesting point but the responses to your post
+remind us that people (and indeed whole cultures) are not all situated at the
+same point on the continuum of directness between "It's a cow, stupid" and
+"From this side it looks not unlike a cow".
+   -- Spencer Graves and Michael Dewey (reply after a long discussion of a
+      potential "No RTFM" policy)
+      R-help (August 2010)
+
+Your Shakespearean insult for the day is... Thou weedy motley-minded bugbear
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X63 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X63' [63] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+You say yourself it wasn't reproducible. So it could have been anything that
+"crashed" your R, cosmic radiation, a bolt of lightning reversing a bit in your
+computer memory, ... :-)
+   -- Martin Maechler (replying to a bug report)
+      R-devel (July 2005)
+
+Your Shakespearean insult for the day is... Thou puking folly-fallen mumble-news
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X63 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X63' [63] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+hist(rnorm(1e6), col = colors()[grep("grey", colors())], nclass = 108, main =
+"R's 108 Shades of Grey")
+   -- Fritz Scholz (proving R has more than 50 Shades of Grey)
+      private communication (March 2015)
+
+Your Shakespearean insult for the day is... Thou qualling beef-witted baggage
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X63 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X63' [63] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+As the name says, studentizing is left as an easy student exercise.
+Destudentizing is more difficult and usually called professorizing.
+   -- Dieter Menne (in response to a question whether residuals from nls() are
+      studentized)
+      R-help (April 2009)
+
+Your Shakespearean insult for the day is... Thou frothy elf-skinned foot-licker
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X63 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X63' [63] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+Kelvin Lam: My institute has been heavily dependent on SAS for the past while,
+and SAS is starting to charge us a very deep amount for license renewal. Since
+we are a non-profit organization that is definitely not sustainable. The team
+is brainstorming possibility of switching to R, at least gradually. I am
+talking about the entire institute with considerable number of analysts using
+SAS their entire career. There's a handful of us using R regularly. What kind
+of problems and challenges have you faced?
+Frank Harrell: One of your challenges will be that with the increased
+productivity of the team you will have time for more intellectually challenging
+problems. That frustrates some people.
+   -- Kelvin Lam and Frank Harrell
+      R-help (July 2009)
+
+Your Shakespearean insult for the day is... Thou bootless ill-breeding pigeon-egg
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X63 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X63' [63] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+I must say I feel very uneasy about giving advice on how to use R as a
+pre-processor for something that is to be done in Excel, but we are a broad
+church here!
+   -- Bill Venables
+      R-help (March 2009)
+
+Your Shakespearean insult for the day is... Thou cockered onion-eyed apple-john
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X40 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X40' [40] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+SAS seems to be to statistical computing what Microsoft is to personal
+computing.
+   -- Bill Venables
+      'Exegeses on Linear Models' paper (May 2000)
+
+Your Shakespearean insult for the day is... Thou gorbellied dismal-dreaming hugger-mugger
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X42 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X42' [42] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+I used a heuristic... pulled from my posterior. That makes it Bayesian, right?
+   -- JD Long (in a not too serious chat about modeling strategies)
+      Stackoverflow (November 2010)
+
+Your Shakespearean insult for the day is... Thou bawdy common-kissing minnow
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X42 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X42' [42] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
+
+Justin: Is there a function that just does whatever I'm thinking (aka whatever
+my homework question is...)?
+Joshua Ulrich: That's the magic_pony function.
+   -- Justin and Joshua Ulrich
+      stackoverflow.com (June 2013)
+
+Your Shakespearean insult for the day is... Thou pribbling bat-fowling miscreant
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+There were 50 or more warnings (use warnings() to see the first 50)
+Loading required package: xml2
+Parsed with column specification:
+cols(
+  .default = col_integer(),
+  Team = col_character(),
+  Conf = col_character(),
+  WL = col_character(),
+  Mean = col_double(),
+  Trimmed = col_double(),
+  Median = col_double(),
+  StDev = col_double(),
+  X46 = col_character()
+)
+See spec(...) for full column specifications.
+Warning message:
+Missing column names filled in: 'X46' [46] 
+Warning message:
+In columnNames[which(is.na(columnNames))] <- c("Conference", "ConfRecord",  :
+  number of items to replace is not a multiple of replacement length
+Warning message:
+Column `name`/`Team` joining character vector and factor, coercing into character vector 
+Warning message:
+In write.table(x = optionsDat, file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatNew.csv",  :
+  appending column names to file
