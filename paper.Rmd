@@ -1,0 +1,79 @@
+---
+title: "Football Championship Ticket Options"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+Since its adoption in the 2014-2015 season, the College Football Playoff (CFP) has given college football fans even more reason to be excited about rankings. No longer did a team need to be in the top 2 of the Bowl Championship Series (BCS) to be a championship contender -- instead, the top 4 teams entered into a playoff. In capitalizing on the intersection between excitement and fandom, the CFP teamed with OptionIt to introduce an RSVP system for championship game tickets, starting in 2018. A fan may by an RSVP (an option) for a team. If that team would make it to the championship game, then the fan holding the option would be able to purchase a ticket at face value. In the end, this is likely to save fans a considerable amount of money as compared to purchasing tickets on the secondary market.
+
+A source of inquiry is what drives the price of these RSVPs. Before the season begins, would knowing a teams performance during the previous year drive prices? Would preseason ranking have any influence on prices? After the start of the season, would rankings, performance, injuries, or other variables affect prices? These questions will be explored throughout our paper.
+
+
+# Hypotheses
+
+
+
+# Methods
+
+
+
+## Data
+
+```{r}
+library(dplyr)
+
+optionsDatNew = readr::read_csv("optionsDatNew.csv")
+
+test = optionsDatNew %>% 
+  select(name, dateTime, contains("price"))
+
+library(ggplot2)
+
+alabamaTS = test %>% 
+  filter(name == "Alabama") %>% 
+  select(dateTime, LL_price) %>% 
+  mutate(dateTime = lubridate::ymd_hms(dateTime), 
+         dateTime = lubridate::day(dateTime)) %>% 
+  ts(.)
+
+library(forecast)
+
+alabamaForecast = HoltWinters(alabamaTS, beta = FALSE, gamma = FALSE)
+
+```
+
+
+### Sources
+
+Given the research questions.
+
+### Issues and Limitations
+
+# Results
+
+### Previous Year-end Rank and Initial Prices
+
+
+```{r}
+initialData = readr::read_csv("optionsDat.csv")
+
+previousYearRank = readr::read_csv("massey2017YearEnd.csv")
+
+initialData = initialData %>% 
+  left_join(., previousYearRank, by = c("name" = "Team")) %>% 
+  group_by(name)
+
+initialData %>% 
+  slice(., 1L) %>% 
+  filter(masseyYearEnd < 50) %>% 
+  ggplot(., aes(masseyYearEnd, as.numeric(LL_price))) +
+  geom_point()
+
+
+```
+

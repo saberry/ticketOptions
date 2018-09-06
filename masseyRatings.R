@@ -35,5 +35,3 @@ masseyRatings = function() {
   return(ratingsTable)
   
 }
-
-masseyRatings()
