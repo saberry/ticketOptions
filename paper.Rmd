@@ -24,29 +24,6 @@ A source of inquiry is what drives the price of these RSVPs. Before the season b
 
 ## Data
 
-```{r}
-library(dplyr)
-
-optionsDatNew = readr::read_csv("optionsDatNew.csv")
-
-test = optionsDatNew %>% 
-  select(name, dateTime, contains("price"))
-
-library(ggplot2)
-
-alabamaTS = test %>% 
-  filter(name == "Alabama") %>% 
-  select(dateTime, LL_price) %>% 
-  mutate(dateTime = lubridate::ymd_hms(dateTime), 
-         dateTime = lubridate::day(dateTime)) %>% 
-  ts(.)
-
-library(forecast)
-
-alabamaForecast = HoltWinters(alabamaTS, beta = FALSE, gamma = FALSE)
-
-```
-
 
 ### Sources
 
@@ -58,22 +35,37 @@ Given the research questions.
 
 ### Previous Year-end Rank and Initial Prices
 
+As a starting point, we began by looking at Massey's year-end rankings and early option prices (February 2018).
+
+In an effort to reduce visual clutter and focus on potentially high-value teams, we can visually inspect the top 25 teams at the end of the 2017-2018 season.
 
 ```{r}
 initialData = readr::read_csv("optionsDat.csv")
 
 previousYearRank = readr::read_csv("massey2017YearEnd.csv")
 
+previousYearRank = previousYearRank %>% 
+  mutate(Team = as.character(Team), 
+         Team = gsub("St$", "State", Team))
+
 initialData = initialData %>% 
+  mutate(name = gsub("\\.|,", "", name)) %>% 
   left_join(., previousYearRank, by = c("name" = "Team")) %>% 
   group_by(name)
 
 initialData %>% 
   slice(., 1L) %>% 
-  filter(masseyYearEnd < 50) %>% 
-  ggplot(., aes(masseyYearEnd, as.numeric(LL_price))) +
-  geom_point()
+  filter(masseyYearEnd < 25) %>% 
+  ggplot(., aes(masseyYearEnd, as.numeric(LL_price), color = as.factor(masseyYearEnd))) +
+  geom_point() +
+  theme_minimal()
+```
 
+Visually, there is cer
+
+### Prices By Conference
+
+```{r}
 
 ```
 

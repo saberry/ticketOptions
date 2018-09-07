@@ -75,13 +75,24 @@ optionsDat = cbind(optionsDat, spreadData) %>%
   select(-eventPerformerCategory, -eventPerformerExperiences, 
          -priceTrend)
 
+optionsDat = optionsDat %>% 
+  mutate(name = gsub("\\.|,", "", name))
+
 # Now, we can use our sourced functions and finally join everything together.
 
 injury = injuryScrape()
 
 masseyCompsDat = masseyComps()
 
+masseyCompsDat = masseyCompsDat %>% 
+  mutate(Team = as.character(Team), 
+         Team = gsub("St$", "State", Team))
+
 masseyRatingsDat = masseyRatings()
+
+masseyRatingsDat = masseyRatingsDat %>% 
+  mutate(Team = as.character(Team), 
+         Team = gsub("St$", "State", Team))
 
 winners = predictedWinners()
 
@@ -96,5 +107,5 @@ optionsDat = optionsDat %>%
 # the same file.
 
 write.table(x = optionsDat, 
-            file = "C:/Users/sberry5/Documents/research/ticketOptions/optionsDatV2.csv", append = TRUE, 
+            file = "C:/Users/sberry5/Documents/research/ticketOptions/completeData.csv", append = TRUE, 
             na = "", sep = ",", row.names = FALSE)
