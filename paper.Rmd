@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-Since its adoption in the 2014-2015 season, the College Football Playoff (CFP) has given college football fans even more reason to be excited about rankings. No longer did a team need to be in the top 2 of the Bowl Championship Series (BCS) to be a championship contender -- instead, the top 4 teams entered into a playoff. In capitalizing on the intersection between excitement and fandom, the CFP teamed with OptionIt to introduce an RSVP system for championship game tickets, starting in 2018. A fan may by an RSVP (an option) for a team. If that team would make it to the championship game, then the fan holding the option would be able to purchase a ticket at face value. In the end, this is likely to save fans a considerable amount of money as compared to purchasing tickets on the secondary market.
+Since its adoption in the 2014-2015 season, the College Football Playoff (CFP) has given college football fans even more reason to be excited about rankings. No longer did a team need to be in the top 2 of the Bowl Championship Series (BCS) to be a championship contender -- instead, the top 4 teams entered into a playoff. In capitalizing on the intersection between excitement and fandom, the CFP teamed with OptionIt to introduce an RSVP system for championship game tickets, starting in 2018. A fan may by an RSVP (an option) for a team. If that team would make it to the championship game, then the fan holding the option would be able to purchase a ticket at face value. In the end, this is likely to save fans a considerable amount of money as compared to purchasing tickets on the secondary market. In financial modeling terms, this system could be considered a call option for speculation. When buying an option (the RSVP), the buyer has the right to buy a stock (a ticket) in the future at the strike price (the face value of the ticket).
 
 A source of inquiry is what drives the price of these RSVPs. Before the season begins, would knowing a teams performance during the previous year drive prices? Would preseason ranking have any influence on prices? After the start of the season, would rankings, performance, injuries, or other variables affect prices? These questions will be explored throughout our paper.
 
@@ -31,15 +31,22 @@ Given the research questions.
 
 ### Issues and Limitations
 
+The RSVP data presented a few challenges along the way -- mainly that the data source changed at some point during the course of data collection. This data source change resulted in a considerable span of data loss. Further issues arised on the automatic nature of data collection. Windows Task Scheduler was used to automatically run our data collection scripts daily -- unfortunately, this will not run if a computer is shut down.
+
 # Results
 
-### Previous Year-end Rank and Initial Prices
+### Previous Year-end Rank and Early Prices
 
 As a starting point, we began by looking at Massey's year-end rankings and early option prices (February 2018).
 
 In an effort to reduce visual clutter and focus on potentially high-value teams, we can visually inspect the top 25 teams at the end of the 2017-2018 season.
 
 ```{r}
+
+library(dplyr)
+
+library(ggplot2)
+
 initialData = readr::read_csv("optionsDat.csv")
 
 previousYearRank = readr::read_csv("massey2017YearEnd.csv")
@@ -55,17 +62,84 @@ initialData = initialData %>%
 
 initialData %>% 
   slice(., 1L) %>% 
-  filter(masseyYearEnd < 25) %>% 
-  ggplot(., aes(masseyYearEnd, as.numeric(LL_price), color = as.factor(masseyYearEnd))) +
-  geom_point() +
+  dplyr::filter(masseyYearEnd < 26) %>% 
+  select(masseyYearEnd, UL_price, LL_price, name) %>% 
+  tidyr::gather(key, value, -name, -masseyYearEnd) %>% 
+  arrange(name) %>% 
+  ggplot(., aes(name, as.numeric(value), color = key)) +
+  geom_point(size = 3) +
+  scale_x_discrete(limits = top25PrevNames$Team) +
+  theme_minimal()
+
+initialData %>% 
+  slice(., 1L) %>% 
+  select(name, masseyYearEnd, UL_price, LL_price) %>% 
+  arrange(masseyYearEnd, UL_price)
+```
+
+While North Dakota State finished last year at 23 according to Massey, they are not part of the RSVP data.
+
+
+## Replicating Rankings Through Option Prices
+
+
+### Top 10 Trends
+
+The following figure shows the price trend for every team that has been in the AP top 10 since the beginning of the season. 
+
+```{r}
+completeData = read_csv("completeData.csv")
+
+top10Ever = unique(completeData$name[as.numeric(completeData$AP) < 11])
+
+endOfDay = completeData %>% 
+  mutate(day = gsub("\\s.*", "", .$dateTime)) %>% 
+  group_by(name, day) %>% 
+  slice(n())
+
+completeData %>% 
+  mutate(Rank = as.numeric(Rank), 
+         dateTime = lubridate::ymd_hms(dateTime)) %>% 
+  dplyr::filter(name %in% top10Ever) %>% 
+  select(dateTime, UL_price, LL_price, name) %>% 
+  tidyr::gather(key, value, -name, -dateTime) %>% 
+  arrange(name, dateTime) %>% 
+  ggplot(., aes(dateTime, as.numeric(value), color = key, group = key)) + 
+  geom_path(na.rm = TRUE, linejoin = "mitre") + 
+  facet_wrap(~ name) +
   theme_minimal()
 ```
 
-Visually, there is cer
 
-### Prices By Conference
+
+###
 
 ```{r}
+library(lme4)
 
+top10 = completeData %>% 
+  dplyr::filter(name %in% top10Ever) %>% 
+  mutate(Rank = as.numeric(Rank), 
+         dateTime = lubridate::ymd_hms(dateTime), 
+         averagePrice = (as.numeric(UL_price) + as.numeric(LL_price)) / 2) %>% 
+  select(name, dateTime, averagePrice, Rank, AP, SAG, MAS, USA, 
+         Mean, n, computerPick, publicPick) %>% 
+  mutate(day = gsub("\\s.*", "", .$dateTime)) %>% 
+  group_by(name, day) %>% 
+  slice(n())
+
+mixedMod = lmer(averagePrice ~ as.numeric(Rank) + (1|name), data = top10)
+```
+
+
+###
+
+```{r}
+library(RQuantLib)
+
+AmericanOption(type = "call", 
+               underlying = , 
+               strike = 475, 
+               )
 ```
 

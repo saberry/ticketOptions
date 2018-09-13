@@ -30,7 +30,7 @@ injuryScrape = function() {
   test$team[which(test$team == "" & test$Date != "")] = NA
   
   test = tidyr::fill(test, team, .direction = "down") %>% 
-    filter(Date != "Date", Date != "", 
+    dplyr::filter(Date != "Date", Date != "", 
            grepl("^[A-Z]", .$Date) != TRUE) %>% 
     group_by(team) %>% 
     summarize(n = n())

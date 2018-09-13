@@ -97,11 +97,12 @@ masseyRatingsDat = masseyRatingsDat %>%
 winners = predictedWinners()
 
 optionsDat = optionsDat %>% 
-  left_join(., masseyCompsDat, by = c("name" = "Team")) %>% 
-  left_join(., masseyRatingsDat, by = c("name" = "Team")) %>% 
   left_join(., injury, by = c("name" = "team")) %>% 
   mutate(computerPick = ifelse(.$name %in% winners$computerPicks, 1, 0), 
-         publicPick = ifelse(.$name %in% winners$publicPicks, 1, 0))
+         publicPick = ifelse(.$name %in% winners$publicPicks, 1, 0)) %>% 
+  left_join(., masseyRatingsDat, by = c("name" = "Team")) %>% 
+  left_join(., masseyCompsDat, by = c("name" = "Team"))
+  
 
 # Since we are doing this continually, we will append new data into
 # the same file.
@@ -109,3 +110,8 @@ optionsDat = optionsDat %>%
 write.table(x = optionsDat, 
             file = "C:/Users/sberry5/Documents/research/ticketOptions/completeData.csv", append = TRUE, 
             na = "", sep = ",", row.names = FALSE)
+
+
+# completeData2 %>% 
+#   select(eventId:UL_price, Conf:X59, masseyConference:masseyEL, n, computerPick, publicPick) %>% 
+#   write.csv(., "tofix.csv", row.names = FALSE)
