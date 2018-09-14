@@ -110,9 +110,23 @@ optionsDat = optionsDat %>%
 
 # Before doing anything else, we want to put this data into our runningTab data.
 
-write.table(x = optionsDat, 
-            file = "C:/Users/sberry5/Documents/research/ticketOptions/data/runningTab.csv", append = TRUE, 
-            na = "", sep = ",", row.names = FALSE)
+writeTableInput = function(path = NULL) {
+  if(is.null(path)) {
+    write.table(x = optionsDat, 
+                file = "C:/Users/sberry5/Documents/research/ticketOptions/data/runningTab.csv", append = TRUE, 
+                na = "", sep = ",", row.names = FALSE)
+  } else {
+    write.table(x = optionsDat, 
+                file = paste(path, "data/runningTab.csv", sep = ""), append = TRUE, 
+                na = "", sep = ",", row.names = FALSE)
+  }
+}
+
+# The writeTableInput function behaves the same way as sourceFunctions; just
+# supply the appropriate path and it will go.
+
+writeTableInput()
+
   
 # We want to replace the old past table with the new one, so we will bring in all
 # of the past data, bind, and rewrite.
@@ -121,4 +135,12 @@ pastData = readr::read_csv("C:/Users/sberry5/Documents/research/ticketOptions/da
 
 optionsDat = data.table::rbindlist(list(pastData, optionsDat), fill = TRUE)
 
-write.csv(optionsDat, "C:/Users/sberry5/Documents/research/ticketOptions/data/completeData.csv")
+writeCSVInput = function(path = NULL) {
+  if(is.null(path)) {
+    write.csv(optionsDat, "C:/Users/sberry5/Documents/research/ticketOptions/data/completeData.csv")
+  } else {
+    write.csv(optionsDat, file = paste(path, "data/completeData.csv", sep = ""))
+  }
+}
+
+writeCSVInput()
