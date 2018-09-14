@@ -7,6 +7,70 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+```{r importPrep}
+pacman::p_load(dplyr, ggplot2)
+
+initialData = readr::read_csv("data/optionsDat.csv")
+
+previousYearRank = readr::read_csv("data/massey2017YearEnd.csv")
+
+previousYearRank = previousYearRank %>% 
+  mutate(Team = as.character(Team), 
+         Team = gsub("St$", "State", Team))
+
+initialData = initialData %>% 
+  mutate(name = gsub("\\.|,", "", name)) %>% 
+  left_join(., previousYearRank, by = c("name" = "Team")) %>% 
+  group_by(name)
+
+top25PrevNames = previousYearRank %>% 
+  arrange(as.numeric(masseyYearEnd)) %>% 
+  head(25) %>% 
+  select(Team)
+
+top25InitialPrices = initialData %>% 
+  slice(., 1L) %>% 
+  dplyr::filter(masseyYearEnd < 26) %>% 
+  select(masseyYearEnd, UL_price, LL_price, name) %>% 
+  mutate(average_price = (as.numeric(UL_price) + as.numeric(LL_price)) / 2) %>% 
+  tidyr::gather(key, value, -name, -masseyYearEnd) %>% 
+  arrange(name) %>% 
+  ggplot(., aes(name, as.numeric(value), color = key)) +
+  geom_point(size = 3) +
+  scale_x_discrete(limits = top25PrevNames$Team) +
+  theme_minimal()
+
+completeData = readr::read_csv("refreshed.csv") %>% 
+  mutate(day = gsub("\\s.*", "", .$dateTime))
+
+top10Ever = unique(completeData$name[as.numeric(completeData$AP) < 11])
+
+top25Ever = unique(completeData$name[as.numeric(completeData$AP) < 26])
+
+endOfDay = completeData %>% 
+  mutate(day = gsub("\\s.*", "", .$dateTime)) %>% 
+  group_by(name, day) %>% 
+  slice(n())
+
+volatile = completeData %>% 
+  group_by(name, day) %>%
+  slice(n()) %>%
+  group_by(name) %>% 
+  mutate(lagLL = dplyr::lag(LL_price), 
+         lagUL = dplyr::lag(UL_price)) %>% 
+  mutate(volatilityLL = ((LL_price / lagLL) - 1), 
+         volatilityUL = ((UL_price / lagUL) - 1)) %>% 
+  summarize(sdLL = sd(volatilityLL, na.rm = TRUE), 
+            sdUL = sd(volatilityUL, na.rm = TRUE), 
+            volLL = sdLL * 15.937, 
+            volUL = sdUL * 15.937, 
+            meanLL = mean(LL_price, na.rm = TRUE), 
+            meanUL = mean(UL_price, na.rm = TRUE)) %>% 
+  arrange(desc(volLL), desc(volUL))
+```
+
+
 # Introduction
 
 Since its adoption in the 2014-2015 season, the College Football Playoff (CFP) has given college football fans even more reason to be excited about rankings. No longer did a team need to be in the top 2 of the Bowl Championship Series (BCS) to be a championship contender -- instead, the top 4 teams entered into a playoff. In capitalizing on the intersection between excitement and fandom, the CFP teamed with OptionIt to introduce an RSVP system for championship game tickets, starting in 2018. A fan may by an RSVP (an option) for a team. If that team would make it to the championship game, then the fan holding the option would be able to purchase a ticket at face value. In the end, this is likely to save fans a considerable amount of money as compared to purchasing tickets on the secondary market -- tickets on the secondary market were estimated to be an average of XXXX for the 2018 Championship game. In financial modeling terms, this system could be considered a call option for speculation. When buying an option (the RSVP), the buyer has the right to buy a stock (a ticket) in the future at the strike price (the face value of the ticket).
@@ -47,44 +111,10 @@ As a starting point, we began by looking at Massey's year-end rankings and early
 In an effort to reduce visual clutter and focus on potentially high-value teams, we can visually inspect the top 25 teams at the end of the 2017-2018 season.
 
 ```{r}
-
-library(dplyr)
-
-library(ggplot2)
-
-initialData = readr::read_csv("optionsDat.csv")
-
-previousYearRank = readr::read_csv("massey2017YearEnd.csv")
-
-previousYearRank = previousYearRank %>% 
-  mutate(Team = as.character(Team), 
-         Team = gsub("St$", "State", Team))
-
-initialData = initialData %>% 
-  mutate(name = gsub("\\.|,", "", name)) %>% 
-  left_join(., previousYearRank, by = c("name" = "Team")) %>% 
-  group_by(name)
-
-top25PrevNames = previousYearRank %>% 
-  arrange(as.numeric(masseyYearEnd)) %>% 
-  head(25) %>% 
-  select(Team)
-
-initialData %>% 
-  slice(., 1L) %>% 
-  dplyr::filter(masseyYearEnd < 26) %>% 
-  select(masseyYearEnd, UL_price, LL_price, name) %>% 
-  mutate(average_price = (as.numeric(UL_price) + as.numeric(LL_price)) / 2) %>% 
-  tidyr::gather(key, value, -name, -masseyYearEnd) %>% 
-  arrange(name) %>% 
-  ggplot(., aes(name, as.numeric(value), color = key)) +
-  geom_point(size = 3) +
-  scale_x_discrete(limits = top25PrevNames$Team) +
-  theme_minimal()
+top25InitialPrices
 ```
 
 The preceding visualization provides a clear picture 
-
 
 ## Ranking Correlations
 
@@ -99,6 +129,8 @@ completeData %>%
 ```
 
 
+Generally, strong correlations are present. For upcoming models, we will opt to use AP, MAS, and USA
+
 ## Replicating Rankings Through Option Prices
 
 
@@ -107,16 +139,6 @@ completeData %>%
 The following figure shows the price trend for every team that has been in the AP top 10 since the beginning of the season. 
 
 ```{r}
-completeData = readr::read_csv("refreshed.csv") %>% 
-  mutate(day = gsub("\\s.*", "", .$dateTime))
-
-top10Ever = unique(completeData$name[as.numeric(completeData$AP) < 11])
-
-endOfDay = completeData %>% 
-  mutate(day = gsub("\\s.*", "", .$dateTime)) %>% 
-  group_by(name, day) %>% 
-  slice(n())
-
 completeData %>% 
   mutate(Rank = as.numeric(Rank), 
          dateTime = lubridate::ymd_hms(dateTime)) %>% 
@@ -131,6 +153,20 @@ completeData %>%
 ```
 
 A quick visual inspection of every team that has been in the top 10 this year might suggest persistent high confidence for Alabama, Clemson, and Georgia (but to a slightly less degree). Not surprisingly, Ohio State and Oklahoma are starting to trend upwards; meanwhile, Notre Dame has consistently high prices (relatively speaking), but on a potential downward trend.
+
+
+### Volatility
+
+```{r}
+volatile %>% 
+  filter(name %in% top25Ever) %>% 
+  select(volLL, volUL, name) %>% 
+  tidyr::gather(key = key, value = value, -name) %>% 
+  ggplot(., aes(name, value, color = key)) + 
+  geom_point() +
+  theme_minimal()
+```
+
 
 ###
 
@@ -153,25 +189,7 @@ mixedMod = lmer(averagePrice ~ as.numeric(USA) + as.numeric(MAS) +
 ```
 
 
-### Volatility
 
-```{r}
-volatile = completeData %>% 
-  group_by(name, day) %>%
-  slice(n()) %>%
-  group_by(name) %>% 
-  mutate(lagLL = dplyr::lag(LL_price), 
-         lagUL = dplyr::lag(UL_price)) %>% 
-  mutate(volatilityLL = ((LL_price / lagLL) - 1), 
-         volatilityUL = ((UL_price / lagUL) - 1)) %>% 
-  summarize(sdLL = sd(volatilityLL, na.rm = TRUE), 
-            sdUL = sd(volatilityUL, na.rm = TRUE), 
-            volLL = sdLL * 15.937, 
-            volUL = sdUL * 15.937, 
-            meanLL = mean(LL_price, na.rm = TRUE), 
-            meanUL = mean(UL_price, na.rm = TRUE)) %>% 
-  arrange(desc(volLL), desc(volUL))
-```
 
 
 ###
