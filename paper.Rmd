@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-Since its adoption in the 2014-2015 season, the College Football Playoff (CFP) has given college football fans even more reason to be excited about rankings. No longer did a team need to be in the top 2 of the Bowl Championship Series (BCS) to be a championship contender -- instead, the top 4 teams entered into a playoff. In capitalizing on the intersection between excitement and fandom, the CFP teamed with OptionIt to introduce an RSVP system for championship game tickets, starting in 2018. A fan may by an RSVP (an option) for a team. If that team would make it to the championship game, then the fan holding the option would be able to purchase a ticket at face value. In the end, this is likely to save fans a considerable amount of money as compared to purchasing tickets on the secondary market. In financial modeling terms, this system could be considered a call option for speculation. When buying an option (the RSVP), the buyer has the right to buy a stock (a ticket) in the future at the strike price (the face value of the ticket).
+Since its adoption in the 2014-2015 season, the College Football Playoff (CFP) has given college football fans even more reason to be excited about rankings. No longer did a team need to be in the top 2 of the Bowl Championship Series (BCS) to be a championship contender -- instead, the top 4 teams entered into a playoff. In capitalizing on the intersection between excitement and fandom, the CFP teamed with OptionIt to introduce an RSVP system for championship game tickets, starting in 2018. A fan may by an RSVP (an option) for a team. If that team would make it to the championship game, then the fan holding the option would be able to purchase a ticket at face value. In the end, this is likely to save fans a considerable amount of money as compared to purchasing tickets on the secondary market -- tickets on the secondary market were estimated to be an average of XXXX for the 2018 Championship game. In financial modeling terms, this system could be considered a call option for speculation. When buying an option (the RSVP), the buyer has the right to buy a stock (a ticket) in the future at the strike price (the face value of the ticket).
 
 A source of inquiry is what drives the price of these RSVPs. Before the season begins, would knowing a teams performance during the previous year drive prices? Would preseason ranking have any influence on prices? After the start of the season, would rankings, performance, injuries, or other variables affect prices? These questions will be explored throughout our paper.
 
@@ -24,14 +24,19 @@ A source of inquiry is what drives the price of these RSVPs. Before the season b
 
 ## Data
 
+The internet is full of interesting data and finding it is never too hard. While finding interesting data does not present a challenge, finding data that is free to use can be tricky. In the context of data, free to use does not necessarily mean free in a monetary sense. Instead of a paywall, data is often locked behind terms of service (ToS). While scraping data has become easier, data creators are getting more sophisticated at "hiding" the data (i.e., it is not sitting nicely within the html, but loads through Javascrip) or ToS. With the appropriate accumen, the location of the data ceases to pose a challenge; the same cannot be said for ToS. In scraping our data, we not only read the ToS, but we also examined each site's robots.txt. Since we wanted to conduct our data collection in a programmatic fashion, we wanted to ensure that we were not going to be running afoul of restrictions placed within the robots.txt file. To that end, all the data that we collected is free to use -- in other words, no restrictions apply. 
 
 ### Sources
 
-Given the research questions.
+Given the research questions, we sought to collect data from several different sources. Given the excellent compilation of team rankings, Massey's website was used to amass rankings.
+
+Injury counts were pulled from Don Best's website and projected winners were pulled from XXX.
+
+Finally, the RSVP data was pulled from the json object on the CFP-RSVP site. While the main page displays the current option price for an upper-level ticket (UL_price), the json object also contains prices for lower-level tickets (LL_price). There are also different hotel packages within the data, but our primary focus will be on the two ticket prices. 
 
 ### Issues and Limitations
 
-The RSVP data presented a few challenges along the way -- mainly that the data source changed at some point during the course of data collection. This data source change resulted in a considerable span of data loss. Further issues arised on the automatic nature of data collection. Windows Task Scheduler was used to automatically run our data collection scripts daily -- unfortunately, this will not run if a computer is shut down.
+The RSVP data presented a few challenges along the way -- mainly that the data source changed at some point during the course of data collection. This data source change resulted in a considerable span of data loss. Further, issues arised on the automatic nature of data collection. Windows Task Scheduler was used to automatically run our data collection scripts daily -- unfortunately, this will not run if a computer is shut down. Finally, new ratings were added to the Massey Ratings page. Given the position of the Massey ratings in our data join, many columns became displaced from their original position. While this was fixed, some values were not recovered.
 
 # Results
 
@@ -60,24 +65,38 @@ initialData = initialData %>%
   left_join(., previousYearRank, by = c("name" = "Team")) %>% 
   group_by(name)
 
+top25PrevNames = previousYearRank %>% 
+  arrange(as.numeric(masseyYearEnd)) %>% 
+  head(25) %>% 
+  select(Team)
+
 initialData %>% 
   slice(., 1L) %>% 
   dplyr::filter(masseyYearEnd < 26) %>% 
   select(masseyYearEnd, UL_price, LL_price, name) %>% 
+  mutate(average_price = (as.numeric(UL_price) + as.numeric(LL_price)) / 2) %>% 
   tidyr::gather(key, value, -name, -masseyYearEnd) %>% 
   arrange(name) %>% 
   ggplot(., aes(name, as.numeric(value), color = key)) +
   geom_point(size = 3) +
   scale_x_discrete(limits = top25PrevNames$Team) +
   theme_minimal()
-
-initialData %>% 
-  slice(., 1L) %>% 
-  select(name, masseyYearEnd, UL_price, LL_price) %>% 
-  arrange(masseyYearEnd, UL_price)
 ```
 
-While North Dakota State finished last year at 23 according to Massey, they are not part of the RSVP data.
+The preceding visualization provides a clear picture 
+
+
+## Ranking Correlations
+
+For the sake of exploration and to limit the chances of future multicollinearity, we wanted to explore how some of the more well-known ranking were correlated:
+
+```{r}
+completeData %>% 
+  select(AP, SAG, MAS, USA, FPI) %>% 
+  na.omit() %>% 
+  cor() %>% 
+  corrplot::corrplot.mixed()
+```
 
 
 ## Replicating Rankings Through Option Prices
@@ -88,7 +107,8 @@ While North Dakota State finished last year at 23 according to Massey, they are 
 The following figure shows the price trend for every team that has been in the AP top 10 since the beginning of the season. 
 
 ```{r}
-completeData = read_csv("completeData.csv")
+completeData = readr::read_csv("refreshed.csv") %>% 
+  mutate(day = gsub("\\s.*", "", .$dateTime))
 
 top10Ever = unique(completeData$name[as.numeric(completeData$AP) < 11])
 
@@ -110,7 +130,7 @@ completeData %>%
   theme_minimal()
 ```
 
-
+A quick visual inspection of every team that has been in the top 10 this year might suggest persistent high confidence for Alabama, Clemson, and Georgia (but to a slightly less degree). Not surprisingly, Ohio State and Oklahoma are starting to trend upwards; meanwhile, Notre Dame has consistently high prices (relatively speaking), but on a potential downward trend.
 
 ###
 
@@ -118,7 +138,7 @@ completeData %>%
 library(lme4)
 
 top10 = completeData %>% 
-  dplyr::filter(name %in% top10Ever) %>% 
+  # dplyr::filter(name %in% top10Ever) %>% 
   mutate(Rank = as.numeric(Rank), 
          dateTime = lubridate::ymd_hms(dateTime), 
          averagePrice = (as.numeric(UL_price) + as.numeric(LL_price)) / 2) %>% 
@@ -128,7 +148,29 @@ top10 = completeData %>%
   group_by(name, day) %>% 
   slice(n())
 
-mixedMod = lmer(averagePrice ~ as.numeric(Rank) + (1|name), data = top10)
+mixedMod = lmer(averagePrice ~ as.numeric(USA) + as.numeric(MAS) + 
+                  (1|name), data = top10)
+```
+
+
+### Volatility
+
+```{r}
+volatile = completeData %>% 
+  group_by(name, day) %>%
+  slice(n()) %>%
+  group_by(name) %>% 
+  mutate(lagLL = dplyr::lag(LL_price), 
+         lagUL = dplyr::lag(UL_price)) %>% 
+  mutate(volatilityLL = ((LL_price / lagLL) - 1), 
+         volatilityUL = ((UL_price / lagUL) - 1)) %>% 
+  summarize(sdLL = sd(volatilityLL, na.rm = TRUE), 
+            sdUL = sd(volatilityUL, na.rm = TRUE), 
+            volLL = sdLL * 15.937, 
+            volUL = sdUL * 15.937, 
+            meanLL = mean(LL_price, na.rm = TRUE), 
+            meanUL = mean(UL_price, na.rm = TRUE)) %>% 
+  arrange(desc(volLL), desc(volUL))
 ```
 
 
