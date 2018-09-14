@@ -22,4 +22,4 @@ You will find an assortment of code within this repository. If your desire is to
 
 Our results are generally discussed in a highly visual and descriptive manner. That is not to say, though, that we do not engage in some statistical fun.
 
-![](top10Trend.png)
+![](top10Trends.png)
