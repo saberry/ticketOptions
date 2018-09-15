@@ -4,12 +4,12 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
 
 ```{r importPrep}
-pacman::p_load(dplyr, ggplot2)
+pacman::p_load(dplyr, ggplot2, stringr, mgcv, broom)
 
 initialData = readr::read_csv("data/optionsDat.csv")
 
@@ -75,7 +75,9 @@ allHistory = read.csv("data/allHistory.csv")
 
 # Introduction
 
-Since its adoption in the 2014-2015 season, the College Football Playoff (CFP) has given college football fans even more reason to be excited about rankings. No longer did a team need to be in the top 2 of the Bowl Championship Series (BCS) to be a championship contender -- instead, the top 4 teams entered into a playoff. In capitalizing on the intersection between excitement and fandom, the CFP teamed with OptionIt to introduce an RSVP system for championship game tickets, starting in 2018. A fan may by an RSVP (an option) for a team. If that team would make it to the championship game, then the fan holding the option would be able to purchase a ticket at face value. In the end, this is likely to save fans a considerable amount of money as compared to purchasing tickets on the secondary market -- tickets on the secondary market were estimated to be an average of XXXX for the 2018 Championship game. In financial modeling terms, this system could be considered a call option for speculation. When buying an option (the RSVP), the buyer has the right to buy a stock (a ticket) in the future at the strike price (the face value of the ticket).
+Since its adoption in the 2014-2015 season, the College Football Playoff (CFP) has given college football fans even more reason to be excited about rankings. No longer did a team need to be in the top 2 of the Bowl Championship Series (BCS) to be a championship contender -- instead, the top 4 teams entered into a playoff. In capitalizing on the intersection between excitement and fandom, the CFP teamed with OptionIt to introduce an RSVP system for championship game tickets, starting in 2018. A fan may by an RSVP (an option) for a team. If that team would make it to the championship game, then the fan holding the option would be able to purchase a ticket at face value. In the end, this is likely to save fans a considerable amount of money as compared to purchasing tickets on the secondary market -- tickets on the secondary market were estimated to be an average of \$2,689 for the 2018 Championship game. In financial modeling terms, this system could be considered a call option for speculation. When buying an option (the RSVP), the buyer has the right to buy a stock (a ticket) in the future at the strike price (the face value of the ticket). 
+
+There is certainly a huge amount of speculation built into this -- at present an option for a lower-level seat for Alabama is very nearly \$600. This is a considerable financial risk when purchasing such an option. Coupled with a possible face value around \$800, a fan buying an option for \$600 could easily have \$1,400 wrapped up into a ticket. This is still less money than what would be spent on the secondary market, so the reward is potentially high. 
 
 A source of inquiry is what drives the price of these RSVPs. Before the season begins, would knowing a teams performance during the previous year drive prices? Would preseason ranking have any influence on prices? After the start of the season, would rankings, performance, injuries, or other variables affect prices? These questions will be explored throughout our paper.
 
@@ -113,7 +115,10 @@ As a starting point, we began by looking at Massey's year-end rankings and early
 In an effort to reduce visual clutter and focus on potentially high-value teams, we can visually inspect the top 25 teams at the end of the 2017-2018 season.
 
 ```{r}
-top25InitialPrices
+top25InitialPrices + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  scale_y_continuous(name = "") +
+  scale_x_discrete(name = "")
 ```
 
 The preceding visualization provides a clear picture 
@@ -151,7 +156,9 @@ completeData %>%
   ggplot(., aes(dateTime, as.numeric(value), color = key, group = key)) + 
   geom_path(na.rm = TRUE, linejoin = "mitre") + 
   facet_wrap(~ name) +
-  theme_minimal()
+  theme_minimal() +
+  scale_x_datetime(name = "") +
+  scale_y_continuous(name = "")
 ```
 
 A quick visual inspection of every team that has been in the top 10 this year might suggest persistent high confidence for Alabama, Clemson, and Georgia (but to a slightly less degree). Not surprisingly, Ohio State and Oklahoma are starting to trend upwards; meanwhile, Notre Dame has consistently high prices (relatively speaking), but on a potential downward trend.
@@ -168,7 +175,9 @@ volatile %>%
   tidyr::gather(key = key, value = value, -name) %>% 
   ggplot(., aes(name, value, color = key)) + 
   geom_point() +
-  theme_minimal()
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  scale_y_continuous(name = "Volatility")
 ```
 
 We can compare these plotted volatility values with the values that CFP-RSVP uses to graphically illustrate a team's price trend.
@@ -180,26 +189,27 @@ changes = allHistory %>%
   select(name, variable, value) %>% 
   distinct() %>% 
   group_by(name) %>% 
-  summarize(n = n()) %>% 
-  arrange(desc(n)) %>% 
+  summarize(Count = n()) %>% 
+  arrange(desc(Count)) %>% 
   as.data.frame() %>% 
   head(25) %>% 
   mutate(name = factor(name, levels = .$name))
 
-ggplot(changes, aes(name, n)) + 
+ggplot(changes, aes(name, Count)) + 
   geom_point() + 
   scale_x_discrete(breaks = changes$name) +
-  theme_minimal()
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  scale_x_discrete(name = "")
 ```
 
 
 A cursory glance of the listed names should look familiar.
 
 
-We can also plot the values:
+We can also plot the series for all of those teams which have appeared in the top 25 this season:
 
 ```{r}
-
 allHistory %>% 
   filter(allHistory$name %in% top25Ever) %>%
   group_by(name, variable) %>% 
@@ -207,7 +217,9 @@ allHistory %>%
   ggplot(., aes(obs, value, color = variable)) + 
   geom_path() +
   facet_wrap(~name) +
-  theme_minimal()
+  theme_minimal() +
+  scale_x_continuous(name = "") + 
+  scale_y_continuous(name = "")
 ```
 
 
@@ -232,17 +244,81 @@ mixedMod = lmer(averagePrice ~ as.numeric(USA) + as.numeric(MAS) +
 ```
 
 
+#### Explaining Volatility
 
+```{r}
+predictors = completeData %>% 
+  select(Mean, n, name, dateTime, masseyRecord) %>% 
+  mutate(wins = as.numeric(stringr::str_extract(masseyRecord, "^[0-9]+"))) %>% 
+  group_by(name) %>% 
+  slice(n())
 
+modDat = left_join(volatile, predictors, by = "name")
 
-###
+modLL = gam(volLL ~ s(Mean) + wins + s(n),
+            data = modDat)
 
-```{r, eval = FALSE}
-library(RQuantLib)
+# summary(modLL)
 
-AmericanOption(type = "call", 
-               underlying = , 
-               strike = 475, 
-               )
+knitr::kable(tidy(modLL))
+
+knitr::kable(tidy(modLL, parametric = TRUE))
+
+par(mfrow = c(2, 2))
+
+plot.gam(modLL, all.terms = TRUE)
+
+modUL = gam(volUL ~ s(Mean) + wins + s(n),
+            data = modDat)
+
+# summary(modUL)
+
+knitr::kable(tidy(modUL))
+
+knitr::kable(tidy(modUL, parametric = TRUE))
+
+par(mfrow = c(2, 2))
+
+plot.gam(modUL, all.terms = TRUE)
 ```
 
+#### Explaining Current Prices
+
+```{r}
+currentPriceModDat = completeData %>% 
+  select(Mean, n, name, dateTime, masseyRecord, UL_price, LL_price) %>% 
+  mutate(wins = as.numeric(stringr::str_extract(masseyRecord, "^[0-9]+"))) %>% 
+  group_by(name) %>% 
+  slice(n())
+
+modLL = gam(LL_price ~ s(Mean) + wins + s(n),
+            data = currentPriceModDat)
+
+# summary(modLL)
+
+knitr::kable(tidy(modLL))
+
+knitr::kable(tidy(modLL, parametric = TRUE))
+
+par(mfrow = c(2, 2))
+
+plot.gam(modLL, all.terms = TRUE)
+
+modUL = gam(UL_price ~ s(Mean) + wins + s(n),
+            data = currentPriceModDat)
+
+# summary(modUL)
+
+knitr::kable(tidy(modUL))
+
+knitr::kable(tidy(modUL, parametric = TRUE))
+
+par(mfrow = c(2, 2))
+
+plot.gam(modUL, all.terms = TRUE)
+
+```
+
+# Take Away Messages
+
+While we don't have data back to the inception of CFP-RSVP, we do have a pretty broad swath. Given our visualizations and our models, the strategy is clear: buy early and buy towards the top of the projected rankings. There is no such thing as parity within college football; of the possible 16 slots combined over the last 4 years, there have been 10 unique teams in the playoffs (with Alabama making 4 appearances, Clemson making 3 appearances, and Ohio State and Oklahoma each having 2 appearances). We would likely invest early in the teams that are likely to be around when the playoffs start.
