@@ -4,7 +4,7 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
@@ -68,6 +68,8 @@ volatile = completeData %>%
             meanLL = mean(LL_price, na.rm = TRUE), 
             meanUL = mean(UL_price, na.rm = TRUE)) %>% 
   arrange(desc(volLL), desc(volUL))
+
+allHistory = read.csv("data/allHistory.csv")
 ```
 
 
@@ -157,6 +159,8 @@ A quick visual inspection of every team that has been in the top 10 this year mi
 
 ### Volatility
 
+While the intervals in our option price series are not always equivalent, calculating a team's option price volatility can instructive.
+
 ```{r}
 volatile %>% 
   filter(name %in% top25Ever) %>% 
@@ -164,6 +168,45 @@ volatile %>%
   tidyr::gather(key = key, value = value, -name) %>% 
   ggplot(., aes(name, value, color = key)) + 
   geom_point() +
+  theme_minimal()
+```
+
+We can compare these plotted volatility values with the values that CFP-RSVP uses to graphically illustrate a team's price trend.
+
+First, we can see which 25 teams have had the most price changes throughout the CFP-RSVP's existence. Note that the following table displays total price changes (includes both upper and lower level changes).
+
+```{r}
+changes = allHistory %>% 
+  select(name, variable, value) %>% 
+  distinct() %>% 
+  group_by(name) %>% 
+  summarize(n = n()) %>% 
+  arrange(desc(n)) %>% 
+  as.data.frame() %>% 
+  head(25) %>% 
+  mutate(name = factor(name, levels = .$name))
+
+ggplot(changes, aes(name, n)) + 
+  geom_point() + 
+  scale_x_discrete(breaks = changes$name) +
+  theme_minimal()
+```
+
+
+A cursory glance of the listed names should look familiar.
+
+
+We can also plot the values:
+
+```{r}
+
+allHistory %>% 
+  filter(allHistory$name %in% top25Ever) %>%
+  group_by(name, variable) %>% 
+  mutate(obs = 1:n()) %>% 
+  ggplot(., aes(obs, value, color = variable)) + 
+  geom_path() +
+  facet_wrap(~name) +
   theme_minimal()
 ```
 
@@ -194,7 +237,7 @@ mixedMod = lmer(averagePrice ~ as.numeric(USA) + as.numeric(MAS) +
 
 ###
 
-```{r}
+```{r, eval = FALSE}
 library(RQuantLib)
 
 AmericanOption(type = "call", 

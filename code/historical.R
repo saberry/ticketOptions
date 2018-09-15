@@ -4,13 +4,13 @@
 
 performerID = readr::read_csv("data/completeData.csv")
 
-ids = performerID$id
+ids = sort(unique(performerID$id))
 
 rm(performerID)
 
 allHistory = lapply(ids, function(x) {
   
-  Sys.sleep(.25)
+  Sys.sleep(.1)
   
   pageID = paste("https://api.dibitnow.com/api/v1/eventPerformers/getEventPerformer?eventPerformerId=", 
                  x, sep = "") 
@@ -40,3 +40,6 @@ allHistory = lapply(ids, function(x) {
   return(out)
 })
 
+allHistory = data.table::rbindlist(allHistory)
+
+write.csv(allHistory, "data/allHistory.csv", row.names = FALSE)
