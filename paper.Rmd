@@ -1,10 +1,14 @@
 ---
 title: "Football Championship Ticket Options"
-output: pdf_document
+header-includes:
+   - \usepackage{float}
+output:
+    pdf_document
+
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.pos = 'h')
 ```
 
 
@@ -37,14 +41,14 @@ top25InitialPrices = initialData %>%
   mutate(name = factor(name, levels = .$name)) %>% 
   select(masseyYearEnd, UL_price, LL_price, name) %>% 
   mutate(average_price = (as.numeric(UL_price) + as.numeric(LL_price)) / 2) %>% 
-  tidyr::gather(key, value, -name, -masseyYearEnd) %>% 
+  tidyr::gather(type, value, -name, -masseyYearEnd) %>% 
   arrange(name) %>% 
-  ggplot(., aes(name, as.numeric(value), color = key)) +
-  geom_point(size = 3) +
-  scale_x_discrete(limits = top25PrevNames$Team) +
-  theme_minimal()
+  ggplot(., aes(name, as.numeric(value), color = type)) +
+  geom_point(size = 3, alpha = .5) +
+  theme_minimal() +
+  scale_color_brewer(palette = "Dark2")
 
-completeData = readr::read_csv("refreshed.csv") %>% 
+completeData = readr::read_csv("data/completeData.csv") %>% 
   mutate(day = gsub("\\s.*", "", .$dateTime))
 
 top10Ever = unique(completeData$name[as.numeric(completeData$AP) < 11])
@@ -121,12 +125,18 @@ As a starting point, we began by looking at Massey's year-end rankings and early
 
 In an effort to reduce visual clutter and focus on potentially high-value teams, we can visually inspect the top 25 teams at the end of the 2017-2018 season.
 
-```{r}
+
+```{r, fig.height=4}
 top25InitialPrices + 
   theme(axis.text.x = element_text(angle = 90, hjust = 1), 
         axis.title.x = element_blank(), 
-        axis.title.y = element_blank())
+        axis.title.y = element_blank(), 
+        legend.position = "bottom", 
+        legend.title = element_blank())
+  
 ```
+
+\
 
 The preceding visualization provides a clear picture of how early prices reflect the previous year rankings. This is not terribly surprising, given that the previous year is all of the information informing pricing.
 
@@ -136,7 +146,7 @@ For the sake of exploration and to limit the chances of future multicollinearity
 
 ```{r}
 completeData %>% 
-  select(AP, SAG, MAS, USA, FPI, Mean) %>% 
+  select(AP, SAG, MAS, USA, FPI, Mean, Median) %>% 
   na.omit() %>% 
   cor() %>% 
   corrplot::corrplot.mixed()
@@ -150,21 +160,27 @@ Generally, strong correlations are present. For upcoming models, we will opt to 
 
 The following figure shows the price trend for every team that has been in the AP top 10 since the beginning of the season. 
 
-```{r}
-completeData %>% 
+```{r, fig.height=4}
+top10TrendsData = completeData %>% 
   mutate(Rank = as.numeric(Rank), 
          dateTime = lubridate::ymd_hms(dateTime), 
          name = factor(name, levels = currentRankOrder$name)) %>% 
   dplyr::filter(name %in% top10Ever) %>% 
   select(dateTime, UL_price, LL_price, name) %>% 
   tidyr::gather(key, value, -name, -dateTime) %>% 
-  arrange(name, dateTime) %>% 
-  ggplot(., aes(dateTime, as.numeric(value), color = key, group = key)) + 
+  arrange(name, dateTime)
+
+levels(top10TrendsData$name) = gsub("\\s", "\n", levels(top10TrendsData$name))
+  
+ggplot(top10TrendsData, aes(dateTime, as.numeric(value), color = key, group = key)) + 
   geom_path(na.rm = TRUE, linejoin = "mitre") + 
   facet_wrap(~ name) +
   theme_minimal() +
   theme(axis.title.x = element_blank(), 
-        axis.title.y = element_blank())
+        axis.title.y = element_blank(), 
+        legend.position = "bottom", 
+        legend.title = element_blank()) +
+  scale_color_brewer(palette = "Dark2")
 ```
 
 A quick visual inspection of every team that has been in the top 10 this year might suggest persistent high confidence for Alabama, Clemson, and Georgia (but to a slightly less degree). Not surprisingly, Ohio State and Oklahoma are starting to trend upwards; meanwhile, Notre Dame has consistently high prices (relative to their real chances of actually making it to the playoffs), but on a potential downward trend.
@@ -174,18 +190,21 @@ A quick visual inspection of every team that has been in the top 10 this year mi
 
 While the intervals in our option price series are not always equivalent, calculating a team's option price volatility can be instructive.
 
-```{r}
+```{r, fig.height=4}
 volatile %>% 
   filter(name %in% top25Ever) %>% 
   mutate(name = factor(name, levels = currentRankOrder$name)) %>% 
   select(volLL, volUL, name) %>% 
   tidyr::gather(key = key, value = value, -name) %>% 
   ggplot(., aes(name, value, color = key)) + 
-  geom_point() +
+  geom_point(alpha = .5) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1), 
-        axis.title.x = element_blank()) +
-  scale_y_continuous(name = "Volatility")
+        axis.title.x = element_blank(), 
+        legend.position = "bottom", 
+        legend.title = element_blank()) +
+  scale_y_continuous(name = "Volatility") +
+  scale_color_brewer(palette = "Dark2")
 ```
 
 Mississippi State stands out in terms of volatility. Desipte finishing around 14 in the 2017-2018 season, their preseason rankings were a bit below that. However, they are now beginning to rise in the rankings.
@@ -194,7 +213,7 @@ We can compare these plotted volatility values with the values that CFP-RSVP use
 
 First, we can see which 25 teams have had the most price changes throughout the CFP-RSVP's existence. Note that the following visualizations displays the total number of price changes (includes both upper and lower level changes).
 
-```{r}
+```{r, fig.height=4}
 changes = allHistory %>% 
   select(name, variable, value) %>% 
   distinct() %>% 
@@ -210,7 +229,10 @@ ggplot(changes, aes(name, Count)) +
   scale_x_discrete(breaks = changes$name) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1), 
-        axis.title.x = element_blank())
+        axis.title.x = element_blank(), 
+        legend.position = "bottom", 
+        legend.title = element_blank()) +
+  scale_color_brewer(palette = "Dark2")
 ```
 
 
@@ -219,18 +241,24 @@ With some exceptions (Texas, Florida State, Arizona, Memphis, Miami, Northwester
 
 We can also plot the reported series for all of those teams which have appeared in the top 25 this season:
 
-```{r}
-allHistory %>% 
+```{r, fig.height=4}
+historyData = allHistory %>% 
   filter(allHistory$name %in% top25Ever) %>%
   mutate(name = factor(name, levels = currentRankOrder$name)) %>% 
   group_by(name, variable) %>% 
-  mutate(obs = 1:n()) %>% 
-  ggplot(., aes(obs, value, color = variable)) + 
+  mutate(obs = 1:n())
+
+levels(historyData$name) = gsub("\\s", "\n", levels(historyData$name))
+
+ggplot(historyData, aes(obs, value, color = variable)) + 
   geom_path() +
   facet_wrap(~name) +
   theme_minimal() +
     theme(axis.title.y = element_blank(), 
-        axis.title.x = element_blank())
+        axis.title.x = element_blank(), 
+        legend.position = "bottom", 
+        legend.title = element_blank()) +
+  scale_color_brewer(palette = "Dark2")
 ```
 
 Unfortunately, there is no time component to this reported series -- only a series of numbers. So finding out what caused Alabama's dip in the reported numbers would not be possible.
