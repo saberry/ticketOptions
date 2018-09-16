@@ -343,7 +343,7 @@ testModVol = predict(trainModVol, data = testDatVol)
 The following are error statistics from our trained model predicting new data:
 
 ```{r}
-knitr::kable(postResample(pred = testModVol, obs = testDatVol$volLL))
+knitr::kable(postResample(pred = testModVol, obs = testDatVol$volLL), col.names = "")
 ```
 
 Perhaps not the greatest performance between training and testing, but certainly nothing to completely disregard (reasonable $R^2$ given our context and a mean absolute error that isn't embarrassing).
@@ -370,7 +370,7 @@ testModPrice = predict(trainModPrice, data = testDatPrice)
 ```
 
 ```{r}
-knitr::kable(postResample(pred = testModPrice, obs = testDatPrice$LL_price))
+knitr::kable(postResample(pred = testModPrice, obs = testDatPrice$LL_price), col.names = "")
 ```
 
 These results are not as promising as those generated with our volatility models.
