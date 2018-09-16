@@ -20,7 +20,7 @@ The data that we have collected represents just a few things that might be inter
 
 # Code
 
-You will find an assortment of code within this repository. If your desire is to start pulling this data on your own, you should probably check out the *teamOptionsPullPrep.R* file in the code folder. This will call the necessary functions (from the functions folder, no less) and take care of almost everything (you will need to handle a little bit of file extension renaming, but you can just throw them into the functions were noted). If, however, you want to replicate our paper results, you should find the file title **. 
+You will find an assortment of code within this repository. If your desire is to start pulling this data on your own, you should probably check out the *teamOptionsPullPrep.R* file in the code folder. This will call the necessary functions (from the functions folder, no less) and take care of almost everything (you will need to handle a little bit of file extension renaming, but you can just throw them into the functions were noted). If, however, you want to replicate our paper results, you should find the file title *paperCode.R* (you could, of course, just run our paper.Rmd file). 
 
 We firmly believe that code should be available, warts and all, so we have also included all of our data reconciliation code. The clean version is there, but we don't want the world to think that we did this perfectly on the first shot (or the second...or the third...or perhaps ever) -- we aim for full transparency in our research.
 

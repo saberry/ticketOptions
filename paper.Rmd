@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.pos = 
 
 
 ```{r importPrep}
-pacman::p_load(dplyr, ggplot2, stringr, mgcv, broom, caret)
+pacman::p_load(dplyr, ggplot2, stringr, mgcv, broom, caret, GGally)
 
 initialData = readr::read_csv("data/optionsDat.csv")
 
@@ -103,7 +103,7 @@ When examining the option prices, it becomes apparent that the best teams have t
 
 # Data
 
-The internet is full of interesting data and finding it is never too hard. While finding interesting data does not present a challenge, finding data that is free to use can be tricky. In the context of data, free to use does not necessarily mean free in a monetary sense. Instead of a paywall, data is often locked behind terms of service (ToS). While scraping data has become easier, data creators are getting more sophisticated at "hiding" the data (i.e., it is not sitting nicely within the html, but loads through Javascrip) or ToS. With the appropriate accumen, the location of the data ceases to pose a challenge; the same cannot be said for ToS. In scraping our data, we not only read the ToS, but we also examined each site's robots.txt. Since we wanted to conduct our data collection in a programmatic fashion, we wanted to ensure that we were not going to be running afoul of restrictions placed within the robots.txt file. To that end, all the data that we collected is free to use -- in other words, no restrictions apply. 
+The internet is full of interesting data and finding it is never too hard. While finding interesting data does not present a challenge, finding data that is free to use can be tricky. In the context of data, free to use does not necessarily mean free in a monetary sense. Instead of a paywall, data is often locked behind terms of service (ToS). While scraping data has become easier, data creators are getting more sophisticated at "hiding" the data (i.e., it is not sitting nicely within the html, but loads through JavaScript) or ToS. With the appropriate acumen, the location of the data ceases to pose a challenge; the same cannot be said for ToS. In scraping our data, we not only read the ToS, but we also examined each site's robots.txt. Since we wanted to conduct our data collection in a programmatic fashion, we wanted to ensure that we were not going to be running afoul of restrictions placed within the robots.txt file. To that end, all the data that we collected is free to use -- in other words, no restrictions apply. 
 
 ## Sources
 
@@ -111,11 +111,11 @@ Given the research questions, we sought to collect data from several different s
 
 Injury counts were pulled from Don Best's website and projected winners were pulled from Odds Shark.
 
-Finally, the RSVP data was pulled from the json object on the CFP-RSVP site. While the main page displays the current option price for an upper-level ticket (UL_price), the json object also contains prices for lower-level tickets (LL_price). There are also different hotel packages within the data, but our primary focus will be on the two ticket prices. 
+Finally, the RSVP data was pulled from the json object on the CFP-RSVP site. While the main page displays the current option price for an upper-level ticket (UL_price), the json object also contains prices for lower-level tickets (LL_price). There are also different hotel packages within the data, but our primary focus will be on the two ticket prices. For visualizations, both LL_price and UL_price will be presented; for analyses, we will focus our attention for LL_price. 
 
 ## Issues and Limitations
 
-The RSVP data presented a few challenges along the way -- mainly that the data source changed at some point during the course of data collection. This data source change resulted in a considerable span of data loss. Further, issues arised on the automatic nature of data collection. Windows Task Scheduler was used to automatically run our data collection scripts daily -- unfortunately, this will not run if a computer is shut down. Finally, new ratings were added to the Massey Ratings page. Given the position of the Massey ratings in our data join, many columns became displaced from their original position. While this was fixed, some values were not recovered.
+The RSVP data presented a few challenges along the way -- mainly that the data source changed at some point during the course of data collection. This data source change resulted in a considerable span of data loss. Further, issues arose due to the automatic nature of data collection. Windows Task Scheduler was used to automatically run our data collection scripts daily -- unfortunately, this will not run if a computer is shut down. Finally, new ratings were added to the Massey Ratings page. Given the position of the Massey ratings in our data join, many columns became displaced from their original position. While this was fixed, some values were not recovered.
 
 # Results
 
@@ -126,7 +126,7 @@ As a starting point, we began by looking at Massey's year-end rankings and early
 In an effort to reduce visual clutter and focus on potentially high-value teams, we can visually inspect the top 25 teams at the end of the 2017-2018 season.
 
 
-```{r, fig.height=4}
+```{r, fig.height=3.5}
 top25InitialPrices + 
   theme(axis.text.x = element_text(angle = 90, hjust = 1), 
         axis.title.x = element_blank(), 
@@ -136,43 +136,43 @@ top25InitialPrices +
   
 ```
 
-\
 
-The preceding visualization provides a clear picture of how early prices reflect the previous year rankings. This is not terribly surprising, given that the previous year is all of the information informing pricing.
+The preceding visualization provides a clear picture of how early prices reflect the previous year rankings. Some teams, like Penn State, Oklahoma, and Ohio State, seem to have started out a bit higher than what the end-of-season ranking would have suggested. All of this is not terribly surprising, given that the previous year is all of the information informing pricing.
 
 ## Ranking Correlations
 
-For the sake of exploration and to limit the chances of future multicollinearity, we wanted to explore how some of the more well-known ranking were correlated:
+For the sake of exploration and to limit the chances of future multicollinearity, we wanted to explore how some of the more well-known ranking were correlated. We would anticipate that they are generally well correlated, but :
 
 ```{r}
 completeData %>% 
   select(AP, SAG, MAS, USA, FPI, Mean, Median) %>% 
   na.omit() %>% 
-  cor() %>% 
-  corrplot::corrplot.mixed()
+  GGally::ggcorr(., label = TRUE, 
+                 low = "#4575b4", mid = "#ffffbf", 
+                 high = "#d73027")
 ```
 
 
-Generally, strong correlations are present. For upcoming models, we will opt to use the mean ranking. There are a few reasons for this decision: 1) rankings like AP and USA only go up to 25 and 2) we want something that will capture all of the ratings present. 
+Generally, strong correlations are present. For upcoming models, we will opt to use the mean ranking. There are a few reasons for this decision: 1) rankings like AP and USA only go up to 25, 2) there are sometimes significant differences between the more common ratings (AP & USA Today Coaches) and analytic ratings like Massey and Sagarin, and 3) we want something that will capture all of the ratings present. 
 
 
-## Top 10 Trends
+## Top 25 Trends
 
 The following figure shows the price trend for every team that has been in the AP top 10 since the beginning of the season. 
 
-```{r, fig.height=4}
-top10TrendsData = completeData %>% 
+```{r, fig.height=6}
+top25TrendsData = completeData %>% 
   mutate(Rank = as.numeric(Rank), 
          dateTime = lubridate::ymd_hms(dateTime), 
          name = factor(name, levels = currentRankOrder$name)) %>% 
-  dplyr::filter(name %in% top10Ever) %>% 
+  dplyr::filter(name %in% top25Ever) %>% 
   select(dateTime, UL_price, LL_price, name) %>% 
   tidyr::gather(key, value, -name, -dateTime) %>% 
   arrange(name, dateTime)
 
-levels(top10TrendsData$name) = gsub("\\s", "\n", levels(top10TrendsData$name))
+levels(top25TrendsData$name) = gsub("\\s", "\n", levels(top25TrendsData$name))
   
-ggplot(top10TrendsData, aes(dateTime, as.numeric(value), color = key, group = key)) + 
+ggplot(top25TrendsData, aes(dateTime, as.numeric(value), color = key, group = key)) + 
   geom_path(na.rm = TRUE, linejoin = "mitre") + 
   facet_wrap(~ name) +
   theme_minimal() +
@@ -188,9 +188,9 @@ A quick visual inspection of every team that has been in the top 10 this year mi
 
 ## Volatility
 
-While the intervals in our option price series are not always equivalent, calculating a team's option price volatility can be instructive.
+While the intervals in our option price series are not always equivalent, we do have many time points for each team. When dealing with any investment-related data, volatility is usually of interest. We can use standard volatility calculations to produce a volatility measures for each team's upper and lower ticket prices.
 
-```{r, fig.height=4}
+```{r, fig.height=3.5}
 volatile %>% 
   filter(name %in% top25Ever) %>% 
   mutate(name = factor(name, levels = currentRankOrder$name)) %>% 
@@ -207,13 +207,15 @@ volatile %>%
   scale_color_brewer(palette = "Dark2")
 ```
 
-Mississippi State stands out in terms of volatility. Desipte finishing around 14 in the 2017-2018 season, their preseason rankings were a bit below that. However, they are now beginning to rise in the rankings.
+Mississippi State stands out in terms of volatility. Despite finishing around 14 in the 2017-2018 season, their preseason rankings were a bit below that. However, they are now beginning to rise in the rankings.
 
 We can compare these plotted volatility values with the values that CFP-RSVP uses to graphically illustrate a team's price trend.
 
 First, we can see which 25 teams have had the most price changes throughout the CFP-RSVP's existence. Note that the following visualizations displays the total number of price changes (includes both upper and lower level changes).
 
-```{r, fig.height=4}
+With some exceptions (Texas, Florida State, Arizona, Memphis, Miami, Northwestern, and N.C. State), we see that those teams with the most number of changes are well-aligned with the volatility within the teams that have been in the top 25 throughout the season.
+
+```{r, fig.height=3.2}
 changes = allHistory %>% 
   select(name, variable, value) %>% 
   distinct() %>% 
@@ -236,12 +238,9 @@ ggplot(changes, aes(name, Count)) +
 ```
 
 
-With some exceptions (Texas, Florida State, Arizona, Memphis, Miami, Northwestern, and N.C. State), we see that those teams with the most number of changes are well-aligned with the volatility within the teams that have been in the top 25 throughout the season.
-
-
 We can also plot the reported series for all of those teams which have appeared in the top 25 this season:
 
-```{r, fig.height=4}
+```{r, fig.height=7}
 historyData = allHistory %>% 
   filter(allHistory$name %in% top25Ever) %>%
   mutate(name = factor(name, levels = currentRankOrder$name)) %>% 
@@ -261,11 +260,11 @@ ggplot(historyData, aes(obs, value, color = variable)) +
   scale_color_brewer(palette = "Dark2")
 ```
 
-Unfortunately, there is no time component to this reported series -- only a series of numbers. So finding out what caused Alabama's dip in the reported numbers would not be possible.
+Unfortunately, there is no time component to this reported series -- only a series of numbers. So finding out what caused Alabama's dip in the reported numbers would not be possible. Comparing this abbreviated series (essentially a step-like series) to our series with daily recordings is very interesting.
 
 #### Explaining Volatility
 
-We want to explore if current mean ranking (Mean), wins, injury count (n), and strength of schedule (masseySoS) could be predictive of volatility. Since we want to allow for as much flexibility in our model as possible, we will use generalized additive models for our models. While we will not smooth wins, all other predictors will be smoothed. For the sake of space, we will just look at lower level.
+We want to explore if current mean ranking (Mean), wins, injury count (n), and strength of schedule (masseySoS) could be predictive of volatility. Since we want to allow for as much flexibility in our model as possible, we will use generalized additive models for our models. While we will not smooth wins (there really are not enough values at present to effectively smooth it), all other predictors will be smoothed. For the sake of space, we will just look at lower level (we do, however, expect that upper and lower levels will behave similarly).
 
 ```{r}
 predictors = completeData %>% 
@@ -274,25 +273,23 @@ predictors = completeData %>%
   group_by(name) %>% 
   slice(n())
 
-modDat = left_join(volatile, predictors, by = "name")
+modDatVol = left_join(volatile, predictors, by = "name")
 
-modLL = gam(volLL ~ s(Mean) + wins + s(n) + s(masseySoS),
-            data = modDat)
+modLLVol = gam(volLL ~ s(Mean) + wins + s(n) + s(masseySoS),
+            data = modDatVol)
 
-knitr::kable(tidy(modLL))
+knitr::kable(tidy(modLLVol))
 
-knitr::kable(tidy(modLL, parametric = TRUE))
+knitr::kable(tidy(modLLVol, parametric = TRUE))
 ```
 
-For our smoothed terms, we can see that strength of schedule does not do much, but mean ranking and number of injuries do contribute to volatility. Mean ranking behaves as anticipated (a near linear negative relationship), but the number of injuries has an interesting relationship with volatility (see the following plot). Wins, our lone parametric term, did not have much to contribute.
-
+For our smoothed terms, we can see that strength of schedule does not do much, but mean ranking and number of injuries do contribute to volatility. Mean ranking behaves as anticipated (a near linear negative relationship), but the number of injuries has an interesting relationship with volatility (see the following plots). Wins, our lone parametric term, did not have much to contribute to our model.
 
 ```{r}
 par(mfrow = c(2, 2))
 
-plot.gam(modLL, all.terms = TRUE, se = FALSE)
+plot.gam(modLLVol, all.terms = TRUE, se = FALSE)
 ```
-
 
 #### Explaining Current Prices
 
@@ -305,12 +302,12 @@ currentPriceModDat = completeData %>%
   group_by(name) %>% 
   slice(n())
 
-modLL = gam(LL_price ~ s(Mean) + wins + s(n)+ s(masseySoS),
+modLLPrice = gam(LL_price ~ s(Mean) + wins + s(n)+ s(masseySoS),
             data = currentPriceModDat)
 
-knitr::kable(tidy(modLL))
+knitr::kable(tidy(modLLPrice))
 
-knitr::kable(tidy(modLL, parametric = TRUE))
+knitr::kable(tidy(modLLPrice, parametric = TRUE))
 ```
 
 While wins and strength of schedule did not offer much (again), mean ranking and number of injuries did offer some predictive power. The effect of mean ranking on the current price took on an interesting pattern (as seen below), while the number of injuries had a negative relationship (as would be expected). 
@@ -318,35 +315,70 @@ While wins and strength of schedule did not offer much (again), mean ranking and
 ```{r}
 par(mfrow = c(2, 2))
 
-plot.gam(modLL, all.terms = TRUE, se = FALSE)
+plot.gam(modLLPrice, all.terms = TRUE, se = FALSE)
 ```
 
-
-
-
 ## Model Testing
+
+In an effort to see how our model predicting lower level volatility might perform in a training/testing scenario, we split our data 50%/50%.
+
+```{r}
+modDatVol = na.omit(modDatVol)
+
+set.seed(1001)
+
+trainIndex = createDataPartition(modDatVol$volLL, 
+                                  p = .50, list = FALSE, times = 1)
+
+trainDatVol = modDatVol[trainIndex, ]
+
+testDatVol  = modDatVol[-trainIndex, ]
+
+trainModVol = train(volLL ~ Mean + wins + n + masseySoS,
+            data = trainDatVol, method = "gam")
+
+testModVol = predict(trainModVol, data = testDatVol)
+```
+
+The following are error statistics from our trained model predicting new data:
+
+```{r}
+knitr::kable(postResample(pred = testModVol, obs = testDatVol$volLL))
+```
+
+Perhaps not the greatest performance between training and testing, but certainly nothing to completely disregard (reasonable $R^2$ given our context and a mean absolute error that isn't embarrassing).
+
+
+In doing the same 50%/50% split for current price, we have the following results:
 
 ```{r}
 currentPriceModDat = na.omit(currentPriceModDat)
 
 set.seed(1001)
 
-trainIndex <- createDataPartition(currentPriceModDat$LL_price, 
-                                  p = .50, 
-                                  list = FALSE, 
-                                  times = 1)
+trainIndex = createDataPartition(currentPriceModDat$LL_price, 
+                                  p = .50, list = FALSE, times = 1)
 
-trainDat = currentPriceModDat[ trainIndex, ]
+trainDatPrice = currentPriceModDat[ trainIndex, ]
 
-testDat  = currentPriceModDat[-trainIndex, ]
+testDatPrice  = currentPriceModDat[-trainIndex, ]
 
-trainMod = gam(UL_price ~ s(Mean) + wins + s(n),
-            data = trainDat)
+trainModPrice = train(LL_price ~ Mean + wins + n + masseySoS,
+            data = trainDatPrice, method = "gam")
 
-testMod = update(trainMod, data = testDat)
+testModPrice = predict(trainModPrice, data = testDatPrice)
 ```
+
+```{r}
+knitr::kable(postResample(pred = testModPrice, obs = testDatPrice$LL_price))
+```
+
+These results are not as promising as those generated with our volatility models.
+
 
 
 # Take Away Messages
 
-While we don't have data back to the inception of CFP-RSVP, we do have a pretty broad swath. Given our visualizations and our models, the strategy is clear: buy early and buy towards the top of the projected rankings. There is no such thing as parity within college football; of the possible 16 slots combined over the last 4 years, there have been 10 unique teams in the playoffs (with Alabama making 4 appearances, Clemson making 3 appearances, and Ohio State and Oklahoma each having 2 appearances). We would likely invest early in the teams that are likely to be around when the playoffs start.
+The models presented here are incomplete, given that we are only 3 weeks into the college football season. Despite this, we are encouraged that the ticket options are behaving in a predictable manner. As data continues to roll in, our models will grow in complexity and predictive power. Ultimately, the goal is buy before a team becomes the hot dark horse and sell become a team's dreams burn in flames.
+
+While we don't have data back to the inception of CFP-RSVP, we do have a pretty broad swath. Given our visualizations and our models, the strategy is clear: buy early and buy towards the top of the projected rankings. There is no such thing as parity within college football; of the possible 16 slots combined over the last 4 years, there have been 10 unique teams in the playoffs (with Alabama making 4 appearances, Clemson making 3 appearances, and Ohio State and Oklahoma each having 2 appearances). We would likely invest early in the teams that are likely to be around when the playoffs start -- even the casual fan can have a pretty good shot at picking the top.

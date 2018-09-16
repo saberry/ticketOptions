@@ -8,7 +8,8 @@
 
 if (!require("pacman")) install.packages("pacman")
 
-pacman::p_load(dplyr, jsonlite, tidyr, readr, rvest, taskscheduleR, data.table)
+pacman::p_load(dplyr, jsonlite, tidyr, readr, rvest, 
+               taskscheduleR, data.table, reshape)
 
 # All of the functions for this file are sourced from the functions folder. 
 # If you provide the sourceFunction with a character vector for the path on your
