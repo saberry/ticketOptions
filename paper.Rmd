@@ -38,7 +38,7 @@ top25InitialPrices = initialData %>%
   slice(., 1L) %>% 
   dplyr::filter(masseyYearEnd < 26) %>% 
   ungroup() %>% 
-  mutate(name = factor(name, levels = .$name)) %>% 
+  mutate(name = factor(name, levels = top25PrevNames$Team)) %>% 
   select(masseyYearEnd, UL_price, LL_price, name) %>% 
   mutate(average_price = (as.numeric(UL_price) + as.numeric(LL_price)) / 2) %>% 
   tidyr::gather(type, value, -name, -masseyYearEnd) %>% 

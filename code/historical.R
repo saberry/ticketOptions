@@ -35,7 +35,7 @@ allHistory = lapply(ids, function(x) {
   upperLevelChange = reshape2::melt(upperLevelChange, 
                                     id.vars = c("name", "dateTicks"))
   
-  out = bind_rows(lowerLevelChange, upperLevelChange)
+  out = dplyr::bind_rows(lowerLevelChange, upperLevelChange)
   
   return(out)
 })

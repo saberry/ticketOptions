@@ -42,6 +42,7 @@
 "Clemson",636710100151500032,"lowerLevelPrice",542
 "Clemson",636710100245866624,"lowerLevelPrice",605
 "Clemson",636716826558899968,"lowerLevelPrice",625
+"Clemson",636726433169933312,"lowerLevelPrice",625
 "Clemson",1,"upperLevelPrice",125
 "Clemson",636453168691062144,"upperLevelPrice",125
 "Clemson",636453168691062272,"upperLevelPrice",125
@@ -73,6 +74,7 @@
 "Clemson",636710100151500032,"upperLevelPrice",400
 "Clemson",636710100245866624,"upperLevelPrice",400
 "Clemson",636716826558899968,"upperLevelPrice",400
+"Clemson",636726433169933312,"upperLevelPrice",450
 "Duke",1,"lowerLevelPrice",5
 "Duke",636453168691569152,"lowerLevelPrice",5
 "Duke",636453168691569280,"lowerLevelPrice",5
@@ -137,6 +139,8 @@
 "Miami, FL",636683246158333312,"lowerLevelPrice",73
 "Miami, FL",636705060384800000,"lowerLevelPrice",73
 "Miami, FL",636707772012733312,"lowerLevelPrice",73
+"Miami, FL",636726431241033344,"lowerLevelPrice",80
+"Miami, FL",6.36726431324e+17,"lowerLevelPrice",80
 "Miami, FL",1,"upperLevelPrice",75
 "Miami, FL",636453168693609728,"upperLevelPrice",75
 "Miami, FL",636453168693609984,"upperLevelPrice",75
@@ -145,6 +149,8 @@
 "Miami, FL",636683246158333312,"upperLevelPrice",50
 "Miami, FL",636705060384800000,"upperLevelPrice",40
 "Miami, FL",636707772012733312,"upperLevelPrice",50
+"Miami, FL",636726431241033344,"upperLevelPrice",50
+"Miami, FL",6.36726431324e+17,"upperLevelPrice",55
 "N.C. State",1,"lowerLevelPrice",20
 "N.C. State",636453168694119680,"lowerLevelPrice",20
 "N.C. State",636453168694119936,"lowerLevelPrice",20
@@ -477,6 +483,8 @@
 "TCU",636683246158333312,"lowerLevelPrice",22
 "TCU",636705060384800000,"lowerLevelPrice",22
 "TCU",636707772012733312,"lowerLevelPrice",22
+"TCU",636726585294166656,"lowerLevelPrice",30
+"TCU",636726585367933312,"lowerLevelPrice",30
 "TCU",1,"upperLevelPrice",20
 "TCU",636453168707010048,"upperLevelPrice",20
 "TCU",636453168707010176,"upperLevelPrice",20
@@ -485,6 +493,8 @@
 "TCU",636683246158333312,"upperLevelPrice",15
 "TCU",636705060384800000,"upperLevelPrice",12
 "TCU",636707772012733312,"upperLevelPrice",15
+"TCU",636726585294166656,"upperLevelPrice",15
+"TCU",636726585367933312,"upperLevelPrice",20
 "Oklahoma",1,"lowerLevelPrice",125
 "Oklahoma",636453168707529856,"lowerLevelPrice",125
 "Oklahoma",636453168707529856,"lowerLevelPrice",125
@@ -505,6 +515,8 @@
 "Oklahoma State",636683246158333312,"lowerLevelPrice",29
 "Oklahoma State",636705060384800000,"lowerLevelPrice",29
 "Oklahoma State",636707772012733312,"lowerLevelPrice",29
+"Oklahoma State",636726484236499968,"lowerLevelPrice",35
+"Oklahoma State",636726484305566720,"lowerLevelPrice",35
 "Oklahoma State",1,"upperLevelPrice",35
 "Oklahoma State",636453168708042496,"upperLevelPrice",35
 "Oklahoma State",636453168708042624,"upperLevelPrice",35
@@ -513,6 +525,8 @@
 "Oklahoma State",636683246158333312,"upperLevelPrice",20
 "Oklahoma State",636705060384800000,"upperLevelPrice",16
 "Oklahoma State",636707772012733312,"upperLevelPrice",20
+"Oklahoma State",636726484236499968,"upperLevelPrice",20
+"Oklahoma State",636726484305566720,"upperLevelPrice",25
 "West Virginia",1,"lowerLevelPrice",5
 "West Virginia",636453168708555008,"lowerLevelPrice",5
 "West Virginia",636453168708555136,"lowerLevelPrice",5
@@ -557,6 +571,8 @@
 "Wisconsin",636691903908400000,"lowerLevelPrice",75
 "Wisconsin",636705060384800000,"lowerLevelPrice",75
 "Wisconsin",636707772012733312,"lowerLevelPrice",75
+"Wisconsin",636726484559466624,"lowerLevelPrice",60
+"Wisconsin",636726484625400064,"lowerLevelPrice",60
 "Wisconsin",1,"upperLevelPrice",30
 "Wisconsin",636453168709086720,"upperLevelPrice",30
 "Wisconsin",636453168709086720,"upperLevelPrice",30
@@ -571,6 +587,8 @@
 "Wisconsin",636691903908400000,"upperLevelPrice",50
 "Wisconsin",636705060384800000,"upperLevelPrice",40
 "Wisconsin",636707772012733312,"upperLevelPrice",50
+"Wisconsin",636726484559466624,"upperLevelPrice",50
+"Wisconsin",636726484625400064,"upperLevelPrice",40
 "Northwestern",1,"lowerLevelPrice",25
 "Northwestern",636453168709600896,"lowerLevelPrice",25
 "Northwestern",636453168709601024,"lowerLevelPrice",25
@@ -625,6 +643,8 @@
 "Ohio State",636711591661266688,"lowerLevelPrice",218
 "Ohio State",636720542844866688,"lowerLevelPrice",218
 "Ohio State",636720543020933376,"lowerLevelPrice",250
+"Ohio State",636726646175299968,"lowerLevelPrice",300
+"Ohio State",636726646247966720,"lowerLevelPrice",300
 "Ohio State",1,"upperLevelPrice",75
 "Ohio State",636453168710625408,"upperLevelPrice",75
 "Ohio State",636453168710625408,"upperLevelPrice",75
@@ -651,6 +671,8 @@
 "Ohio State",636711591661266688,"upperLevelPrice",150
 "Ohio State",636720542844866688,"upperLevelPrice",175
 "Ohio State",636720543020933376,"upperLevelPrice",175
+"Ohio State",636726646175299968,"upperLevelPrice",175
+"Ohio State",636726646247966720,"upperLevelPrice",225
 "Penn State",1,"lowerLevelPrice",75
 "Penn State",636453168711129984,"lowerLevelPrice",75
 "Penn State",636453168711130112,"lowerLevelPrice",75
@@ -661,6 +683,8 @@
 "Penn State",636687709974933376,"lowerLevelPrice",138
 "Penn State",636705060384800000,"lowerLevelPrice",138
 "Penn State",636707772012733312,"lowerLevelPrice",138
+"Penn State",636726430166833280,"lowerLevelPrice",150
+"Penn State",636726430238233344,"lowerLevelPrice",150
 "Penn State",1,"upperLevelPrice",50
 "Penn State",636453168711129984,"upperLevelPrice",50
 "Penn State",636453168711130112,"upperLevelPrice",50
@@ -671,6 +695,8 @@
 "Penn State",636687709974933376,"upperLevelPrice",95
 "Penn State",636705060384800000,"upperLevelPrice",76
 "Penn State",636707772012733312,"upperLevelPrice",95
+"Penn State",636726430166833280,"upperLevelPrice",95
+"Penn State",636726430238233344,"upperLevelPrice",100
 "Rutgers",1,"lowerLevelPrice",5
 "Rutgers",636453168711633536,"lowerLevelPrice",5
 "Rutgers",636453168711633536,"lowerLevelPrice",5
@@ -743,6 +769,8 @@
 "Michigan",636705060384800000,"lowerLevelPrice",100
 "Michigan",636707772012733312,"lowerLevelPrice",100
 "Michigan",636711596593600000,"lowerLevelPrice",109
+"Michigan",636726485208366720,"lowerLevelPrice",120
+"Michigan",636726485314166656,"lowerLevelPrice",120
 "Michigan",1,"upperLevelPrice",35
 "Michigan",636453168714174976,"upperLevelPrice",35
 "Michigan",636453168714175104,"upperLevelPrice",35
@@ -755,6 +783,8 @@
 "Michigan",636705060384800000,"upperLevelPrice",60
 "Michigan",636707772012733312,"upperLevelPrice",75
 "Michigan",636711596593600000,"upperLevelPrice",75
+"Michigan",636726485208366720,"upperLevelPrice",75
+"Michigan",636726485314166656,"upperLevelPrice",90
 "Michigan State",1,"lowerLevelPrice",40
 "Michigan State",636453168714675584,"lowerLevelPrice",40
 "Michigan State",636453168714675712,"lowerLevelPrice",40
@@ -977,6 +1007,8 @@
 "Notre Dame",636707772012733312,"lowerLevelPrice",140
 "Notre Dame",636714478320300032,"lowerLevelPrice",140
 "Notre Dame",636714478433266688,"lowerLevelPrice",165
+"Notre Dame",636726418063866624,"lowerLevelPrice",165
+"Notre Dame",636726418156033280,"lowerLevelPrice",190
 "Notre Dame",1,"upperLevelPrice",50
 "Notre Dame",636453168723441280,"upperLevelPrice",50
 "Notre Dame",636453168723441280,"upperLevelPrice",50
@@ -993,6 +1025,8 @@
 "Notre Dame",636707772012733312,"upperLevelPrice",83
 "Notre Dame",636714478320300032,"upperLevelPrice",120
 "Notre Dame",636714478433266688,"upperLevelPrice",120
+"Notre Dame",636726418063866624,"upperLevelPrice",140
+"Notre Dame",636726418156033280,"upperLevelPrice",140
 "BYU",1,"lowerLevelPrice",5
 "BYU",636453168724062080,"lowerLevelPrice",5
 "BYU",636453168724062080,"lowerLevelPrice",5
@@ -1263,12 +1297,16 @@
 "Boise State",636683246158333312,"lowerLevelPrice",12
 "Boise State",636705060384800000,"lowerLevelPrice",12
 "Boise State",636707772012733312,"lowerLevelPrice",12
+"Boise State",636726485662599936,"lowerLevelPrice",10
+"Boise State",636726485728233344,"lowerLevelPrice",10
 "Boise State",1,"upperLevelPrice",8
 "Boise State",636453168735438336,"upperLevelPrice",8
 "Boise State",636453168735438464,"upperLevelPrice",8
 "Boise State",636683246158333312,"upperLevelPrice",8
 "Boise State",636705060384800000,"upperLevelPrice",6.4
 "Boise State",636707772012733312,"upperLevelPrice",8
+"Boise State",636726485662599936,"upperLevelPrice",8
+"Boise State",636726485728233344,"upperLevelPrice",5
 "Hawaii",1,"lowerLevelPrice",5
 "Hawaii",636453168735953280,"lowerLevelPrice",5
 "Hawaii",636453168735953408,"lowerLevelPrice",5
@@ -1405,6 +1443,9 @@
 "Stanford",636683246158333312,"lowerLevelPrice",28
 "Stanford",636705060384800000,"lowerLevelPrice",28
 "Stanford",636707772012733312,"lowerLevelPrice",28
+"Stanford",636726430676199936,"lowerLevelPrice",35
+"Stanford",636726430766499968,"lowerLevelPrice",40
+"Stanford",636726430824633344,"lowerLevelPrice",40
 "Stanford",1,"upperLevelPrice",8
 "Stanford",636453168741381632,"upperLevelPrice",8
 "Stanford",636453168741381760,"upperLevelPrice",8
@@ -1415,6 +1456,9 @@
 "Stanford",636683246158333312,"upperLevelPrice",19
 "Stanford",636705060384800000,"upperLevelPrice",15.2
 "Stanford",636707772012733312,"upperLevelPrice",19
+"Stanford",636726430676199936,"upperLevelPrice",19
+"Stanford",636726430766499968,"upperLevelPrice",19
+"Stanford",636726430824633344,"upperLevelPrice",25
 "UCLA",1,"lowerLevelPrice",5
 "UCLA",636453168741893888,"lowerLevelPrice",5
 "UCLA",636453168741893888,"lowerLevelPrice",5
@@ -1484,6 +1528,8 @@
 "Washington",636698769907699968,"lowerLevelPrice",131
 "Washington",636705060384800000,"lowerLevelPrice",131
 "Washington",636707772012733312,"lowerLevelPrice",131
+"Washington",636726650223466624,"lowerLevelPrice",131
+"Washington",636726650348466688,"lowerLevelPrice",150
 "Washington",1,"upperLevelPrice",15
 "Washington",636453168743432960,"upperLevelPrice",15
 "Washington",636453168743433088,"upperLevelPrice",15
@@ -1501,6 +1547,8 @@
 "Washington",636698769907699968,"upperLevelPrice",90
 "Washington",636705060384800000,"upperLevelPrice",72
 "Washington",636707772012733312,"upperLevelPrice",90
+"Washington",636726650223466624,"upperLevelPrice",100
+"Washington",636726650348466688,"upperLevelPrice",100
 "Washington State",1,"lowerLevelPrice",12
 "Washington State",636453168743936896,"lowerLevelPrice",12
 "Washington State",636453168743937024,"lowerLevelPrice",12
@@ -1680,6 +1728,7 @@
 "Alabama",636705664139466624,"lowerLevelPrice",575
 "Alabama",636707772012733312,"lowerLevelPrice",575
 "Alabama",636710097625266688,"lowerLevelPrice",625
+"Alabama",636726433631033344,"lowerLevelPrice",625
 "Alabama",1,"upperLevelPrice",125
 "Alabama",636453168748575872,"upperLevelPrice",125
 "Alabama",636453168748575872,"upperLevelPrice",125
@@ -1717,6 +1766,7 @@
 "Alabama",636705664139466624,"upperLevelPrice",320
 "Alabama",636707772012733312,"upperLevelPrice",400
 "Alabama",636710097625266688,"upperLevelPrice",400
+"Alabama",636726433631033344,"upperLevelPrice",450
 "Auburn",1,"lowerLevelPrice",125
 "Auburn",636453168749128448,"lowerLevelPrice",125
 "Auburn",636453168749128576,"lowerLevelPrice",125
@@ -1725,6 +1775,10 @@
 "Auburn",636707772012733312,"lowerLevelPrice",145
 "Auburn",636714417912400000,"lowerLevelPrice",145
 "Auburn",636714417994733312,"lowerLevelPrice",165
+"Auburn",636726467182033280,"lowerLevelPrice",185
+"Auburn",636726467312966656,"lowerLevelPrice",185
+"Auburn",636726501698800000,"lowerLevelPrice",150
+"Auburn",636726501797100032,"lowerLevelPrice",150
 "Auburn",1,"upperLevelPrice",100
 "Auburn",636453168749128448,"upperLevelPrice",100
 "Auburn",636453168749128576,"upperLevelPrice",100
@@ -1733,6 +1787,10 @@
 "Auburn",636707772012733312,"upperLevelPrice",100
 "Auburn",636714417912400000,"upperLevelPrice",120
 "Auburn",636714417994733312,"upperLevelPrice",120
+"Auburn",636726467182033280,"upperLevelPrice",120
+"Auburn",636726467312966656,"upperLevelPrice",150
+"Auburn",636726501698800000,"upperLevelPrice",150
+"Auburn",636726501797100032,"upperLevelPrice",100
 "Mississippi State",1,"lowerLevelPrice",5
 "Mississippi State",636453168749636480,"lowerLevelPrice",5
 "Mississippi State",636453168749636608,"lowerLevelPrice",5
@@ -1743,6 +1801,8 @@
 "Mississippi State",636695223819666688,"lowerLevelPrice",22
 "Mississippi State",636705060384800000,"lowerLevelPrice",22
 "Mississippi State",636707772012733312,"lowerLevelPrice",22
+"Mississippi State",636726602330099968,"lowerLevelPrice",28
+"Mississippi State",636726602400400000,"lowerLevelPrice",28
 "Mississippi State",1,"upperLevelPrice",3
 "Mississippi State",636453168749636480,"upperLevelPrice",3
 "Mississippi State",636453168749636608,"upperLevelPrice",3
@@ -1753,6 +1813,8 @@
 "Mississippi State",636695223819666688,"upperLevelPrice",15
 "Mississippi State",636705060384800000,"upperLevelPrice",12
 "Mississippi State",636707772012733312,"upperLevelPrice",15
+"Mississippi State",636726602330099968,"upperLevelPrice",15
+"Mississippi State",636726602400400000,"upperLevelPrice",18
 "Missouri",1,"lowerLevelPrice",5
 "Missouri",636453168750146304,"lowerLevelPrice",5
 "Missouri",636453168750146304,"lowerLevelPrice",5
@@ -1789,6 +1851,15 @@
 "LSU",636707772012733312,"lowerLevelPrice",36
 "LSU",636715417167500032,"lowerLevelPrice",45
 "LSU",636715417400133376,"lowerLevelPrice",45
+"LSU",636726501324733312,"lowerLevelPrice",75
+"LSU",636726501326466688,"lowerLevelPrice",60
+"LSU",636726501400199936,"lowerLevelPrice",60
+"LSU",636726501418333312,"lowerLevelPrice",60
+"LSU",636726501463333376,"lowerLevelPrice",70
+"LSU",636726502477100032,"lowerLevelPrice",90
+"LSU",636726502546766720,"lowerLevelPrice",90
+"LSU",636726514060700032,"lowerLevelPrice",90
+"LSU",636726514137866624,"lowerLevelPrice",110
 "LSU",1,"upperLevelPrice",10
 "LSU",636453168751154944,"upperLevelPrice",10
 "LSU",636453168751155072,"upperLevelPrice",10
@@ -1801,6 +1872,15 @@
 "LSU",636707772012733312,"upperLevelPrice",25
 "LSU",636715417167500032,"upperLevelPrice",25
 "LSU",636715417400133376,"upperLevelPrice",35
+"LSU",636726501324733312,"upperLevelPrice",35
+"LSU",636726501326466688,"upperLevelPrice",35
+"LSU",636726501400199936,"upperLevelPrice",45
+"LSU",636726501418333312,"upperLevelPrice",60
+"LSU",636726501463333376,"upperLevelPrice",60
+"LSU",636726502477100032,"upperLevelPrice",60
+"LSU",636726502546766720,"upperLevelPrice",70
+"LSU",636726514060700032,"upperLevelPrice",85
+"LSU",636726514137866624,"upperLevelPrice",85
 "Louisiana",1,"lowerLevelPrice",5
 "Louisiana",636453168751682176,"lowerLevelPrice",5
 "Louisiana",636453168751682304,"lowerLevelPrice",5
