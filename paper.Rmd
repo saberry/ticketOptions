@@ -190,6 +190,9 @@ A quick visual inspection of every team that has been in the top 10 this year mi
 
 While the intervals in our option price series are not always equivalent, we do have many time points for each team. When dealing with any investment-related data, volatility is usually of interest. We can use standard volatility calculations to produce a volatility measures for each team's upper and lower ticket prices.
 
+$$ Daily_\Delta = \frac{price - price_{lag}}{price_{lag}} - 1 $$
+$$ volatility = \sigma_{daily_\Delta} * \sqrt[]{252}$$
+
 ```{r, fig.height=3.5}
 volatile %>% 
   filter(name %in% top25Ever) %>% 
