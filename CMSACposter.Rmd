@@ -1,0 +1,308 @@
+---
+title: "2018 College Football Playoff Ticket Option Pricing"
+author: "Seth Berry & Scott Nestler; Dept. of IT, Analytics, & Operations"
+date: "10/19/2018"
+output: 
+  ioslides_presentation:
+    logo: MCOBsquare.jpeg
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r importPrep}
+pacman::p_load(dplyr, ggplot2, stringr, mgcv, broom, caret, GGally)
+
+initialData = readr::read_csv("data/optionsDat.csv")
+
+previousYearRank = readr::read_csv("data/massey2017YearEnd.csv")
+
+previousYearRank = previousYearRank %>% 
+  mutate(Team = as.character(Team), 
+         Team = gsub("St$", "State", Team))
+
+initialData = initialData %>% 
+  mutate(name = gsub("\\.|,", "", name)) %>% 
+  left_join(., previousYearRank, by = c("name" = "Team")) %>% 
+  group_by(name) %>% 
+  arrange(masseyYearEnd)
+
+top25PrevNames = previousYearRank %>% 
+  arrange(as.numeric(masseyYearEnd)) %>% 
+  head(25) %>% 
+  select(Team)
+
+top25InitialPrices = initialData %>% 
+  slice(., 1L) %>% 
+  dplyr::filter(masseyYearEnd < 26) %>% 
+  ungroup() %>% 
+  mutate(name = factor(name, levels = top25PrevNames$Team)) %>% 
+  select(masseyYearEnd, UL_price, LL_price, name) %>% 
+  mutate(average_price = (as.numeric(UL_price) + as.numeric(LL_price)) / 2) %>% 
+  tidyr::gather(type, value, -name, -masseyYearEnd) %>% 
+  arrange(name) %>% 
+  ggplot(., aes(name, as.numeric(value), color = type)) +
+  geom_point(size = 3, alpha = .5) +
+  theme_minimal() +
+  scale_color_brewer(palette = "Dark2")
+
+completeData = readr::read_csv("data/completeData.csv") %>% 
+  mutate(day = gsub("\\s.*", "", .$dateTime))
+
+top10Ever = unique(completeData$name[as.numeric(completeData$AP) < 11])
+
+top25Ever = unique(completeData$name[as.numeric(completeData$AP) < 26])
+
+currentRankOrder = completeData %>% 
+  group_by(name) %>% 
+  arrange(dateTime) %>% 
+  slice(n()) %>% 
+  select(name, AP) %>% 
+  arrange(AP)
+
+endOfDay = completeData %>% 
+  mutate(day = gsub("\\s.*", "", .$dateTime)) %>% 
+  group_by(name, day) %>% 
+  slice(n())
+
+volatile = completeData %>% 
+  group_by(name, day) %>%
+  slice(n()) %>%
+  group_by(name) %>% 
+  mutate(lagLL = dplyr::lag(LL_price), 
+         lagUL = dplyr::lag(UL_price)) %>% 
+  mutate(volatilityLL = ((LL_price / lagLL) - 1), 
+         volatilityUL = ((UL_price / lagUL) - 1)) %>% 
+  summarize(sdLL = sd(volatilityLL, na.rm = TRUE), 
+            sdUL = sd(volatilityUL, na.rm = TRUE), 
+            volLL = sdLL * 15.937, 
+            volUL = sdUL * 15.937, 
+            meanLL = mean(LL_price, na.rm = TRUE), 
+            meanUL = mean(UL_price, na.rm = TRUE)) %>% 
+  arrange(desc(volLL), desc(volUL))
+
+allHistory = read.csv("data/allHistory.csv")
+```
+
+## Some Background
+
+- College Football Playoff (CFP) - a 4 team bracket - started with 2014-15 season.
+- In 2018 CFP partnered with OptionIt to initiate a RSVP system for the National Championship Game (and other major bowl games).
+- An RSVP is an **option** - the right (but not an obligation) to buy a ticket for face value, IF your team makes it.
+- Costs (and savings) are high. E.g. for #1-ranked Alabama
+    + An option for a lower-level seat for is nearly \$600. 
+    + With the added face value of roughly \$800, total cost would be \$1,400.
+    + While not cheap, this is likely less than the ticket would cost in the secondary market the week before the game.
+
+## Questions of Possible Interest
+
+1. Before the season begins, would knowing a team's performance during the previous year driveprices? 
+2. Would preseason ranking have any influence on prices? 
+3. After the start of the season, would rankings, performance, strengthy of schedule, injuries, or other variables affect prices (and volatility)?
+
+## Previous Year-end Rank & Early Prices
+
+- Using Massey's year-end rankings and early option prices (February 2018) we see:
+    + Ranking at end of previous season does generally appear to inform price. 
+    + Some teams started out higher than what might be expected.
+
+```{r, fig.height=3}
+top25InitialPrices +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1), 
+        axis.title.x = element_blank(), 
+        legend.position = "bottom", 
+        legend.title = element_blank()) + labs(y = "Price ($)")
+  
+```
+
+## Ranking Correlations
+
+- An exploration of the correlation of well-known rankings was conducted. As expected, there is strong correlation.
+- Going forward, we use the mean ranking for each team among this set.
+
+```{r, fig.height=3.5}
+completeData %>% 
+  select(AP, SAG, MAS, USA, FPI, Mean, Median) %>% 
+  na.omit() %>% 
+  GGally::ggcorr(., label = TRUE, 
+                 low = "#4575b4", mid = "#ffffbf", 
+                 high = "#d73027")
+```
+
+## Top 10 Trends
+
+- The following figure shows the price trend for every team that has been in the AP top 10 since the beginning of the season. 
+- Quick visual inspection suggests persistent high confidence for Alabama, Clemson, and Georgia.
+
+```{r, fig.height=4}
+top10TrendsData = completeData %>% 
+  mutate(Rank = as.numeric(Rank), 
+         dateTime = lubridate::ymd_hms(dateTime), 
+         name = factor(name, levels = currentRankOrder$name)) %>% 
+  dplyr::filter(name %in% top10Ever) %>% 
+  select(dateTime, UL_price, LL_price, name) %>% 
+  tidyr::gather(key, value, -name, -dateTime) %>% 
+  arrange(name, dateTime)
+
+levels(top10TrendsData$name) = gsub("\\s", "\n", levels(top10TrendsData$name))
+  
+ggplot(top10TrendsData, aes(dateTime, as.numeric(value), color = key, group = key)) + 
+  geom_path(na.rm = TRUE, linejoin = "mitre") + 
+  facet_wrap(~ name) +
+  theme_minimal() +
+  theme(axis.title.x = element_blank(), 
+        axis.title.y = element_blank(), 
+        legend.position = "bottom", 
+        legend.title = element_blank()) +
+  scale_color_brewer(palette = "Dark2")
+```
+
+## Volatility
+
+- The intervals in our option price series are not always equivalent, but we do have many time points for each team. 
+- In financial option pricing,volatility is usually a factor of interest.
+
+```{r, fig.height=3.5}
+volatile %>% 
+  filter(name %in% top25Ever) %>% 
+  mutate(name = factor(name, levels = currentRankOrder$name)) %>% 
+  select(volLL, volUL, name) %>% 
+  tidyr::gather(key = key, value = value, -name) %>% 
+  ggplot(., aes(name, value, color = key)) + 
+  geom_point(alpha = .5) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1), 
+        axis.title.x = element_blank(), 
+        legend.position = "bottom", 
+        legend.title = element_blank()) +
+  scale_y_continuous(name = "Volatility") +
+  scale_color_brewer(palette = "Dark2")
+```
+
+## Explaining Volatility
+
+- Are current mean ranking (Mean), wins, injury count (n), and strength of schedule (masseySoS) predictive of volatility?
+- Using generalized additive models for our models to be as flexible as possible; all parameters but wins are smoothed.
+- Only showing lower level seats here but have similar analysis for upper level.
+
+```{r}
+predictors = completeData %>% 
+  select(Mean, n, name, dateTime, masseyRecord, masseySoS) %>% 
+  mutate(wins = as.numeric(stringr::str_extract(masseyRecord, "^[0-9]+"))) %>% 
+  group_by(name) %>% 
+  slice(n())
+
+modDatVol = left_join(volatile, predictors, by = "name")
+
+modLLVol = gam(volLL ~ s(Mean) + wins + s(n) + s(masseySoS),
+            data = modDatVol)
+
+knitr::kable(tidy(modLLVol))
+
+knitr::kable(tidy(modLLVol, parametric = TRUE))
+```
+
+- Strength of schedule and wins did not do much, but mean ranking and number of injuries do contribute to volatility.
+- Mean ranking behaves as anticipated (a near linear negative relationship).
+- Number of injuries has an interesting relationship with volatility (see the following plots).
+
+```{r}
+par(mfrow = c(2, 2))
+
+plot.gam(modLLVol, all.terms = TRUE, se = FALSE)
+```
+
+## Explaining Current Prices
+
+We will run a similar model, except using current lower level price as our outcome variable.
+
+```{r}
+currentPriceModDat = completeData %>% 
+  select(Mean, n, name, dateTime, masseyRecord, masseySoS, UL_price, LL_price) %>% 
+  mutate(wins = as.numeric(stringr::str_extract(masseyRecord, "^[0-9]+"))) %>% 
+  group_by(name) %>% 
+  slice(n())
+
+modLLPrice = gam(LL_price ~ s(Mean) + wins + s(n)+ s(masseySoS),
+            data = currentPriceModDat)
+
+knitr::kable(tidy(modLLPrice))
+
+knitr::kable(tidy(modLLPrice, parametric = TRUE))
+```
+
+While wins and strength of schedule did not offer much (again), mean ranking and number of injuries did offer some predictive power. The effect of mean ranking on the current price took on an interesting pattern (as seen below), while the number of injuries had a negative relationship (as would be expected). 
+
+```{r}
+par(mfrow = c(2, 2))
+
+plot.gam(modLLPrice, all.terms = TRUE, se = FALSE)
+```
+
+## Model Testing
+
+In an effort to see how our model predicting lower level volatility might perform in a training/testing scenario, we split our data 50%/50%.
+
+```{r}
+modDatVol = na.omit(modDatVol)
+
+set.seed(1001)
+
+trainIndex = createDataPartition(modDatVol$volLL, 
+                                  p = .50, list = FALSE, times = 1)
+
+trainDatVol = modDatVol[trainIndex, ]
+
+testDatVol  = modDatVol[-trainIndex, ]
+
+trainModVol = train(volLL ~ Mean + wins + n + masseySoS,
+            data = trainDatVol, method = "gam")
+
+testModVol = predict(trainModVol, data = testDatVol)
+```
+
+The following are error statistics from our trained model predicting new data:
+
+```{r}
+knitr::kable(postResample(pred = testModVol, obs = testDatVol$volLL), col.names = "")
+```
+
+Perhaps not the greatest performance between training and testing, but certainly nothing to completely disregard (reasonable $R^2$ given our context and a mean absolute error that isn't embarrassing).
+
+
+In doing the same 50%/50% split for current price, we have the following results:
+
+```{r}
+currentPriceModDat = na.omit(currentPriceModDat)
+
+set.seed(1001)
+
+trainIndex = createDataPartition(currentPriceModDat$LL_price, 
+                                  p = .50, list = FALSE, times = 1)
+
+trainDatPrice = currentPriceModDat[ trainIndex, ]
+
+testDatPrice  = currentPriceModDat[-trainIndex, ]
+
+trainModPrice = train(LL_price ~ Mean + wins + n + masseySoS,
+            data = trainDatPrice, method = "gam")
+
+testModPrice = predict(trainModPrice, data = testDatPrice)
+```
+
+```{r}
+knitr::kable(postResample(pred = testModPrice, obs = testDatPrice$LL_price), col.names = "")
+```
+
+These results are not as promising as those generated with our volatility models.
+
+
+
+## Take Away Messages
+
+- The models presented here are incomplete, as we are only halfway into the college football season. 
+- We are encouraged that the ticket options are behaving in a predictable manner.
+- Our goal is to be able to use these models next season to buy before a team becomes the hot dark horse and sell become a team's dreams burn in flames.
+- The general strategy is clear: buy early and buy towards the top of the projected rankings.
