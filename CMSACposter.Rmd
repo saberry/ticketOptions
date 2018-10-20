@@ -98,14 +98,19 @@ allHistory = read.csv("data/allHistory.csv")
 
 ## Questions of Possible Interest
 
-1. Before the season begins, would knowing a team's performance during the previous year driveprices? 
-2. Would preseason ranking have any influence on prices? 
-3. After the start of the season, would rankings, performance, strengthy of schedule, injuries, or other variables affect prices (and volatility)?
+1. Before the season begins, would knowing a team's performance during the previous year drive prices? 
+2. Would initial preseason ranking have any influence on prices? 
+3. After the start of the season, would the following affect prices (and volatility)?
+    - rankings
+    - performance
+    - strength of schedule
+    - injuries
+    - other variables
 
 ## Previous Year-end Rank & Early Prices
 
 - Using Massey's year-end rankings and early option prices (February 2018) we see:
-    + Ranking at end of previous season does generally appear to inform price. 
+    + Ranking at end of previous season does *generally* appear to inform price. 
     + Some teams started out higher than what might be expected.
 
 ```{r, fig.height=3}
@@ -134,7 +139,7 @@ completeData %>%
 ## Top 10 Trends
 
 - The following figure shows the price trend for every team that has been in the AP top 10 since the beginning of the season. 
-- Quick visual inspection suggests persistent high confidence for Alabama, Clemson, and Georgia.
+- Quick visual inspection suggests persistent high confidence for Alabama, Ohio State, and Clemson. In recent weeks, Notre Dame has noticeably increased while Georgia dropped.
 
 ```{r, fig.height=4}
 top10TrendsData = completeData %>% 
@@ -161,8 +166,8 @@ ggplot(top10TrendsData, aes(dateTime, as.numeric(value), color = key, group = ke
 
 ## Volatility
 
-- The intervals in our option price series are not always equivalent, but we do have many time points for each team. 
-- In financial option pricing,volatility is usually a factor of interest.
+- In financial option pricing, volatility is usually a key factor affecting price.
+- Some schools (Oregon, Wash St, Oklahoma St, USC) have *much* higher volatility than most.  
 
 ```{r, fig.height=3.5}
 volatile %>% 
@@ -181,11 +186,9 @@ volatile %>%
   scale_color_brewer(palette = "Dark2")
 ```
 
-## Explaining Volatility
+## Explaining Volatility (for Lower Level)
 
-- Are current mean ranking (Mean), wins, injury count (n), and strength of schedule (masseySoS) predictive of volatility?
-- Using generalized additive models for our models to be as flexible as possible; all parameters but wins are smoothed.
-- Only showing lower level seats here but have similar analysis for upper level.
+- Using generalized additive models to be as flexible as possible; all parameters but wins are smoothed.
 
 ```{r}
 predictors = completeData %>% 
@@ -204,9 +207,8 @@ knitr::kable(tidy(modLLVol))
 knitr::kable(tidy(modLLVol, parametric = TRUE))
 ```
 
-- Strength of schedule and wins did not do much, but mean ranking and number of injuries do contribute to volatility.
-- Mean ranking behaves as anticipated (a near linear negative relationship).
-- Number of injuries has an interesting relationship with volatility (see the following plots).
+## Explaining Volatility (cont.)
+- Effects of ranking and injuries on volatility seen earlier in season appear to have gone away.
 
 ```{r}
 par(mfrow = c(2, 2))
@@ -233,7 +235,9 @@ knitr::kable(tidy(modLLPrice))
 knitr::kable(tidy(modLLPrice, parametric = TRUE))
 ```
 
-While wins and strength of schedule did not offer much (again), mean ranking and number of injuries did offer some predictive power. The effect of mean ranking on the current price took on an interesting pattern (as seen below), while the number of injuries had a negative relationship (as would be expected). 
+## Explaining Current Prices (cont.)
+
+- Mean ranking appears to offer only significant explanatory power for price.
 
 ```{r}
 par(mfrow = c(2, 2))
@@ -241,68 +245,9 @@ par(mfrow = c(2, 2))
 plot.gam(modLLPrice, all.terms = TRUE, se = FALSE)
 ```
 
-## Model Testing
-
-In an effort to see how our model predicting lower level volatility might perform in a training/testing scenario, we split our data 50%/50%.
-
-```{r}
-modDatVol = na.omit(modDatVol)
-
-set.seed(1001)
-
-trainIndex = createDataPartition(modDatVol$volLL, 
-                                  p = .50, list = FALSE, times = 1)
-
-trainDatVol = modDatVol[trainIndex, ]
-
-testDatVol  = modDatVol[-trainIndex, ]
-
-trainModVol = train(volLL ~ Mean + wins + n + masseySoS,
-            data = trainDatVol, method = "gam")
-
-testModVol = predict(trainModVol, data = testDatVol)
-```
-
-The following are error statistics from our trained model predicting new data:
-
-```{r}
-knitr::kable(postResample(pred = testModVol, obs = testDatVol$volLL), col.names = "")
-```
-
-Perhaps not the greatest performance between training and testing, but certainly nothing to completely disregard (reasonable $R^2$ given our context and a mean absolute error that isn't embarrassing).
-
-
-In doing the same 50%/50% split for current price, we have the following results:
-
-```{r}
-currentPriceModDat = na.omit(currentPriceModDat)
-
-set.seed(1001)
-
-trainIndex = createDataPartition(currentPriceModDat$LL_price, 
-                                  p = .50, list = FALSE, times = 1)
-
-trainDatPrice = currentPriceModDat[ trainIndex, ]
-
-testDatPrice  = currentPriceModDat[-trainIndex, ]
-
-trainModPrice = train(LL_price ~ Mean + wins + n + masseySoS,
-            data = trainDatPrice, method = "gam")
-
-testModPrice = predict(trainModPrice, data = testDatPrice)
-```
-
-```{r}
-knitr::kable(postResample(pred = testModPrice, obs = testDatPrice$LL_price), col.names = "")
-```
-
-These results are not as promising as those generated with our volatility models.
-
-
-
 ## Take Away Messages
 
 - The models presented here are incomplete, as we are only halfway into the college football season. 
 - We are encouraged that the ticket options are behaving in a predictable manner.
-- Our goal is to be able to use these models next season to buy before a team becomes the hot dark horse and sell become a team's dreams burn in flames.
-- The general strategy is clear: buy early and buy towards the top of the projected rankings.
+- Our goal is to be able to use these models next season to buy before a team becomes the hot dark horse and sell before a team's dreams burn in flames.
+- The **general strategy** is clear: buy early and buy towards the top of the projected rankings.
